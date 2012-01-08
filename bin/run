@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+
+var SyncpointAPI = require('../lib/syncpoint-api.js')
+    , fs = require('fs')
+    , config = JSON.parse(fs.readFileSync(__dirname + "/../config.json", "utf8"))
+    , welcome = '\n\
+\n\
+       ______                  __    __                  \n\
+      / ____/____  __  _______/ /_  / /_  ____ _________ \n\
+     / /    / __ \\/ / / / ___/ __ \\/ __ \\/ __ `/ ___/ _ \\\n\
+    / /___ / /_/ / /_/ / /__/ / / / /_/ / /_/ (__  )  __/\n\
+    \\____/ \\____/\\__,_/\\___/_/ /_/_.___/\\__,_/____/\\___/ \n\
+\n\
+\n\
+       _____                              _        __ \n\
+      / ___/__  ______  _________  ____  (_)____  / /_\n\
+      \\__ \\/ / / / __ \\/ ___/ __ \\/ __ \\/ // __ \\/ __/\n\
+     ___/ / /_/ / / / / /__/ /_/ / /_/ / // / / / /_  \n\
+    /____/\\__, /_/ /_/\\___/ .___/\\____/_//_/ /_/\\__/  \n\
+         /____/          /_/                          \n\
+\n\
+\n\
+              MULTI USER CLOUD BACKUP AND SYNC MANAGER \n\
+              relaxing since 2011 \n\
+';
+
+if (welcome.rainbow) {
+    console.log(welcome.rainbow);
+    console.log("config".green)
+} else {
+    console.log(welcome);
+    console.log("config")
+}
+console.log(config)
+
+var syncpoint = new SyncpointAPI(config);
+syncpoint.start();
+
