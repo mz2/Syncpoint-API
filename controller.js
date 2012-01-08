@@ -1,4 +1,4 @@
-var pairDevice = require('./pairDevice'),
+var pairDevice = require('./lib/pairDevice'),
     coux = require('coux').coux,
     docstate = require("docstate"),
     e = require('errLog').e;
