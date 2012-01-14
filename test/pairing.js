@@ -59,6 +59,8 @@ coux.del(db, function() {
                                 server.pop(); server = server.join('/');
                                 coux([server, '_users', "org.couchdb.user:"+doc.owner], e(function(err, info) {
                                     console.log(info)
+                                    console.log('test complete')
+                                    process.exit()
                                 }))
                                 // create a private database and document for the user
                                 // check to see that we can read it into a public 
