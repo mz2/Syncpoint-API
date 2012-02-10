@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var SyncpointAPI = require('../lib/syncpoint-api.js')
+var SyncpointAPI = require('../lib/syncpoint-api')
     , fs = require('fs')
     , config = JSON.parse(fs.readFileSync(__dirname + "/../config.json", "utf8"))
     , welcome = '\n\
