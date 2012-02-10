@@ -1,3 +1,7 @@
+# To run this
+
+Have node.js around, and run: `bin/run`
+
 # The Device Pairing Document Flow
 
 The goal of pairing is to verify that a given device is in the hand of a particular user. In the main case, the user navigates via Facebook, and obtains a token which is passed to the Syncpoint cluster via sync. As soon as the device is paired, Syncpoint automatically takes care of bringing the device up to date with the user's configuration and data as it exists on their other devices.
