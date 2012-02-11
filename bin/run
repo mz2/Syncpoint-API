@@ -20,8 +20,8 @@ var SyncpointAPI = require('../lib/syncpoint-api')
          /____/          /_/                          \n\
 \n\
 \n\
-              MULTI USER CLOUD BACKUP AND SYNC MANAGER \n\
-              relaxing since 2011 \n\
+            MULTI USER CLOUD BACKUP AND SYNC MANAGER \n\
+            relaxing since 2011 \n\
 ';
 
 if (welcome.rainbow) {
