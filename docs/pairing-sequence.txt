@@ -1,0 +1,38 @@
+Application -> 3rd Party Auth: request access code
+3rd Party Auth -> Application: give access code
+Application -> SDK: create session with 3rd party auth
+SDK -> Device Session DB: Save Session Doc
+
+
+Device Session DB -> Handshake DB: Sync Session Doc
+Handshake DB -> Device Session DB: continuous sync
+note right of "Device Session DB": filter just the session doc
+activate Device Session DB
+activate Handshake DB 
+
+Handshake DB -> Syncpoint Server: load Session Doc
+Syncpoint Server -> 3rd Party Auth: verify access code
+3rd Party Auth -> Syncpoint Server: verified
+Syncpoint Server -> Cloud User Control DB: (maybe) create with access control
+Syncpoint Server -> User Doc: (maybe create) and add session credentials
+
+
+Syncpoint Server -> Handshake DB: make Session Doc active
+Handshake DB -> "Device Session DB": sync active session
+
+
+deactivate Handshake DB 
+deactivate Device Session DB
+"Device Session DB" -> Cloud User Control DB: bidirectional sync
+activate Device Session DB
+activate Cloud User Control DB
+Cloud User Control DB -> "Device Session DB": bidirectional sync
+
+
+
+note over "Handshake DB","Syncpoint Server"
+Syncpoint Server has control of device via sync of control database. 
+See the channel or search provisioning diagram for next steps.
+end note
+
+

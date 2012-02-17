@@ -1,0 +1,52 @@
+note over "Application", "SDK","Device Session DB","Device Channel DB"
+The application can interact with device channel databases before establishing a session.
+end note
+Application -> Device Channel DB: local CRUD and query operations
+
+
+Application -> SDK: initiate session
+note over SDK, "Device Session DB": see pairing sequence
+SDK -> Application: session is active
+
+note over "Device Channel DB", "Device Session DB","Cloud User Control DB"
+Syncpoint Server has control of device via sync of control database. 
+end note
+
+"Device Session DB" -> Cloud User Control DB: bidirectional sync
+activate Device Session DB
+activate Cloud User Control DB
+Cloud User Control DB -> "Device Session DB": bidirectional sync
+
+
+
+
+
+Application -> SDK: create channel
+
+SDK -> "Device Channel DB": create database
+
+
+
+SDK -> "Device Session DB": create installation doc
+SDK -> "Device Session DB": create subscription doc
+SDK -> "Device Session DB": create channel doc
+
+"Cloud User Control DB" -> Syncpoint Server: load channel doc
+Syncpoint Server -> Cloud Channel DB: create database
+Syncpoint Server -> Cloud User Control DB: save Cloud Channel DB URL to channel doc
+Syncpoint Server -> Cloud User Control DB: make channel doc active
+
+Device Session DB -> SDK: open channel and installation docs
+
+SDK -> Device Channel DB: setup sync based on channel and installation settings
+
+
+
+"Device Channel DB" -> Cloud Channel DB: bidirectional sync
+activate Device Channel DB
+activate Cloud Channel DB
+Cloud Channel DB -> "Device Channel DB": bidirectional sync
+
+note over "Device Channel DB", "Cloud Channel DB"
+Channel automatically synced between device and cloud, and then to other devices owned by this user.
+end note
