@@ -16,13 +16,19 @@ Syncpoint Server -> 3rd Party Auth: verify access code
 Syncpoint Server -> Cloud User Control DB: (maybe) create with access control
 Syncpoint Server -> User Doc: (maybe create) and add session credentials
 
-
+Syncpoint Server -> Handshake DB: add Cloud URL and oauth creds to Session Doc
 Syncpoint Server -> Handshake DB: make Session Doc active
 Handshake DB -> "Device Session DB": sync active session
+
+"Device Session DB" -> SDK: load session doc
+
 
 
 deactivate Handshake DB 
 deactivate Device Session DB
+
+SDK -> Device Session DB: setup sync
+
 "Device Session DB" -> Cloud User Control DB: bidirectional sync
 activate Device Session DB
 activate Cloud User Control DB
@@ -34,5 +40,3 @@ note over "Handshake DB","Syncpoint Server"
 Syncpoint Server has control of device via sync of control database. 
 See the channel or search provisioning diagram for next steps.
 end note
-
-

@@ -23,18 +23,19 @@ Cloud User Control DB -> "Device Session DB": bidirectional sync
 
 Application -> SDK: create channel
 
-SDK -> "Device Channel DB": create database
+SDK -> "Device Channel DB": ensure database exists
 
 
-
-SDK -> "Device Session DB": create installation doc
-SDK -> "Device Session DB": create subscription doc
 SDK -> "Device Session DB": create channel doc
+SDK -> "Device Session DB": create subscription doc
+SDK -> "Device Session DB": create installation doc
 
 "Cloud User Control DB" -> Syncpoint Server: load channel doc
-Syncpoint Server -> Cloud Channel DB: create database
+Syncpoint Server -> Cloud Channel DB: create database w/ security
 Syncpoint Server -> Cloud User Control DB: save Cloud Channel DB URL to channel doc
 Syncpoint Server -> Cloud User Control DB: make channel doc active
+
+Cloud User Control DB -> Device Session DB: sync channel doc
 
 Device Session DB -> SDK: open channel and installation docs
 
