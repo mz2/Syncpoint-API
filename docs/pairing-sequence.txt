@@ -27,13 +27,12 @@ Handshake DB -> "Device Session DB": sync active session
 deactivate Handshake DB 
 deactivate Device Session DB
 
-SDK -> Device Session DB: setup sync
+SDK -> Device Session DB: start sync w/ control db
 
 "Device Session DB" -> Cloud User Control DB: bidirectional sync
 activate Device Session DB
 activate Cloud User Control DB
 Cloud User Control DB -> "Device Session DB": bidirectional sync
-
 
 
 note over "Handshake DB","Syncpoint Server"
