@@ -20,17 +20,14 @@ var SyncpointAPI = require('../lib/syncpoint-api')
       \\__ \\/ / / / __ \\/ ___/ __ \\/ __ \\/ // __ \\/ __/\n\
      ___/ / /_/ / / / / /__/ /_/ / /_/ / // / / / /_  \n\
     /____/\\__, /_/ /_/\\___/ .___/\\____/_//_/ /_/\\__/  \n\
-         /____/          /_/                          \n\
-\n\
-\n\
-            MULTI USER CLOUD BACKUP AND SYNC MANAGER \n\
-            relaxing since 2011 \n\
-';
+         /____/          /_/                          \n';
 
 if (welcome.rainbow) {
     console.log(welcome.rainbow);
+    console.log("                             relaxing since 2011\n".red)
 } else {
     console.log(welcome);
+    console.log("                             relaxing since 2011\n")
 }
 console.log("config:",config)
 
