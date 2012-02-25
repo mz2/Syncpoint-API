@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+try {
+    require('colors')
+} catch(e) {}
 
 var SyncpointAPI = require('../lib/syncpoint-api')
     , fs = require('fs')
@@ -26,12 +29,10 @@ var SyncpointAPI = require('../lib/syncpoint-api')
 
 if (welcome.rainbow) {
     console.log(welcome.rainbow);
-    console.log("config".green)
 } else {
     console.log(welcome);
-    console.log("config")
 }
-console.log(config)
+console.log("config:",config)
 
 var syncpoint = new SyncpointAPI(config);
 syncpoint.start();
