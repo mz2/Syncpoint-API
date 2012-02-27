@@ -1,11 +1,22 @@
-var controller = require('../controller'),
+var SyncpointAPI = require('../lib/syncpoint-api'),
     coux = require('coux').coux,
     assert = require("assert")
     docstate = require("docstate"),
     e = require('errLog').e;
 
-// tests should also be capable of testing an erlang implementation
+// tests should also be capable of testing other implementations
 // eg: integration tests
+
+var testConfig = {
+    "apps" : {
+        "test-app" : {
+            "host" : "http://localhost:5984",
+            "handshake-db" : "test-handshake"
+        }
+    }
+}
+
+
 
 function smallRand() {
     return Math.random().toString().substr(2,4);
