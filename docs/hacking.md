@@ -12,4 +12,15 @@ When a user is paired, we create a database for them in the cloud, which is used
 
 The code that attaches to the control databases is in the [`userControlSetup.js`](../lib/userControlSetup.js) module. There's not much to it, the action is mostly in [`userChannelControl.js`](../lib/userChannelControl.js) where we actually react to control events and provision cloud databases.
 
+## Running the tests
+
+If you run `node test/pairing.js` it will attempt to exercise the same code paths as a mobile device that is connecting to the cluster for the first time.
+
+Coming soon will be tests around the channel management facilities.
+
+## Example Mobile App
+
+If you are building an iOS app, the Syncpoint Client is your best bet as far as getting a mobile device to connect. Syncpoint Client is not doing anything you couldn't do yourself by talking to [TouchDB](https://github.com/couchbaselabs/TouchDB-iOS) directly, but there's also no point in writing all that code when Syncpoint Client is open source and easy to install.
+
+
 

@@ -42,9 +42,24 @@ What we think is really powerful, is what happens when you start to think about 
 
 # To run this
 
-Have node.js around, and run: `bin/run`
+Have [node.js](http://nodejs.org/) around, and run: `bin/run`
 
-You'll probably have to install some npm modules before everything is happy.
+You may have to install some [npm](http://npmjs.org) modules before everything is happy. But probably not, as they are included in the repository under the `node_modules` directory.
+
+## Configuring your installation
+
+By default the Syncpoint API is driven as changes listeners connected to `http://localhost:5984`. You'll need to update the `config.json` directory with the URL of the host you are running against. 99% of the time it will be easier to use a publically addressable server, because it can be a pain to get your mobile device to connect to your local workstation. That said, there's no reason it wouldn't work with localhost, assuming you can get your phone on the same wifi as the server.
+
+## Dependencies
+
+These very early versions of Syncpoint use [Apache CouchDB](http://couchdb.apache.org) as the underlying storage, so you should be able to use this with [IrisCouch](http://www.iriscouch.com) (or maybe even [Cloudant](http://www.cloudant.com)), or your own Apache CouchDB installation.
+
+There are some security features we depend on that are only in the upcoming 1.2 release of Apache CouchDB. Also Syncpoint won't be secure without at least a couple of small patches to Apache CouchDB (that Couchbase is working on).
+
+In the longer term we'll be moving to a hybrid storage model with Apache CouchDB handling metadata and sync, but document data actually stored in Couchbase Server. Long before that happens we'll have gotten to the point where we no longer support Apache CouchDB as a backend (there's stuff we're gonna do that requires a fork). 
+
+Expect at some time in the near future to be running the [Syncpoint API listener](https://github.com/couchbaselabs/syncpoint-api-listeners) code against a full-blown Couchbase Syncpoint. We'll make plenty of noise when this happens, and the upgrade path from Apache CouchDB to Couchbase Syncpoint should be seamless.
+
 
 ## Reading the code
 
