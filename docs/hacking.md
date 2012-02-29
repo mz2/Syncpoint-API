@@ -14,7 +14,7 @@ The code that attaches to the control databases is in the [`userControlSetup.js`
 
 ## Running the tests
 
-If you run `node test/pairing.js` it will attempt to exercise the same code paths as a mobile device that is connecting to the cluster for the first time.
+If you run `node test/testFacebookPairing.js` it will attempt to exercise the same code paths as a mobile device that is connecting to the cluster for the first time, via Facebook.
 
 Coming soon will be tests around the channel management facilities.
 
