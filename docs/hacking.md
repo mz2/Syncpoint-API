@@ -20,7 +20,7 @@ Coming soon will be tests around the channel management facilities.
 
 ## Example Mobile App
 
-If you are building an iOS app, the Syncpoint Client is your best bet as far as getting a mobile device to connect. Syncpoint Client is not doing anything you couldn't do yourself by talking to [TouchDB](https://github.com/couchbaselabs/TouchDB-iOS) directly, but there's also no point in writing all that code when Syncpoint Client is open source and easy to install.
+If you are building an iOS app, the Syncpoint Client is your best bet as far as getting a mobile device to connect. Syncpoint Client is not doing anything you couldn't do yourself by talking to [TouchDB](https://github.com/couchbaselabs/TouchDB-iOS) directly, but there's also no point in writing all that code when Syncpoint Client is open source and easy to use.
 
 
 
