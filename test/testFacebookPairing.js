@@ -52,7 +52,6 @@ coux.del(db, function() {
            "state": "new"
         };
         
-
         coux.post(db, handshakeDoc, e(function(err, ok) {
             console.log("created new handshake document", ok.id, "listening for changes on it");
             coux.log == ["post"];
@@ -65,10 +64,16 @@ coux.del(db, function() {
                 // check that the oauth creds work for replication...
                 // check the users database for the document for this user
                 var server = testConfig.apps['test-app'].host;
-                coux([server, '_users', "org.couchdb.user:"+doc.session.user_id], e(function(err, info) {
-                    console.log(info)
-                    console.log('test complete')
-                    process.exit()
+                coux([server, '_users', doc.session.user_id], e(function(err, user) {
+                    console.log("user",user.full_name)
+                    assert.equal(user.state, 'has-control')
+                    assert.equal(user.oauth.consumer_keys[handshakeDoc.oauth_creds.consumer_key],
+                        handshakeDoc.oauth_creds.consumer_secret)
+                    coux([server, user.control_database], function(err, ok) {
+                        assert(!err)
+                        console.log('test successful')
+                        process.exit()
+                    })
                 }))
             }))
         }));
