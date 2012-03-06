@@ -1,6 +1,7 @@
 coux = require('coux').coux
 userChannelControl = require '../lib/userChannelControl'
 docstate = require('docstate')
+testHelper = require('./testHelper')
 
 testAppConfig = 
   "host" : "http://localhost:5984"
@@ -18,14 +19,14 @@ bindControlDb = () ->
     control.handle(change.doc))
 
 
-waitForDoc = (db, id, seq, cb) ->
-  couxOpts = 
-    url : db+"/_changes?filter=_doc_ids&since="+seq+"&include_docs=true&feed=longpoll"
-    agent : false
-  coux.post couxOpts, {"doc_ids": [ id]}, (err, resp) ->
-    # console.log err, resp
-    cb(err, resp.results[0].doc)
-  
+# waitForDoc = (db, id, seq, cb) ->
+#   couxOpts = 
+#     url : db+"/_changes?filter=_doc_ids&since="+seq+"&include_docs=true&feed=longpoll"
+#     agent : false
+#   coux.post couxOpts, {"doc_ids": [ id]}, (err, resp) ->
+#     # console.log err, resp
+#     cb(err, resp.results[0].doc)
+#   
 
 createTemplate = (cb) ->
   coux.del testTemplate, ->
@@ -70,7 +71,7 @@ describe 'userChannelControl', ->
       asyncSpecWait()
       
     it 'should update the document', ->
-      waitForDoc testDb, chId, 1, (err, doc) ->
+      testHelper.waitForDoc testDb, chId, 1, (err, doc) ->
         expect(doc.state).toEqual "ready"
         cloudDb = doc.cloud_database
         asyncSpecDone()
