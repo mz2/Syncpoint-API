@@ -14,9 +14,17 @@ The code that attaches to the control databases is in the [`userControlSetup.js`
 
 ## Running the tests
 
-If you run `node test/testFacebookPairing.js` it will attempt to exercise the same code paths as a mobile device that is connecting to the cluster for the first time, via Facebook.
+The tests require Jasmine. To install it and run them, try:
 
-Coming soon will be tests around the channel management facilities.
+  `npm install -g jasmine-node`
+  
+Leave off the `-g` if you don't want jasmine-node in your PATH.
+
+To run them, do this:
+
+  `jasmine-node --coffee --verbose test/`
+
+The test suite leaves open a hanging connection to the handshake database, so the process won't exit right away. If you want to get faster turnaround time on your tests, try running them with `--autotest`
 
 ## Example Mobile App
 
