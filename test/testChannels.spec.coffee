@@ -90,9 +90,9 @@ describe 'userChannelControl', ->
         asyncSpecDone()
       asyncSpecWait()
 
-    it 'should add the user to the security object members list', ->
+    it '[pending] should add the user to the security object members list', ->
       coux [testAppConfig.host, cloudDb, '_security'], (err, doc) ->
         expect(doc.members).toBeDefined()
-        # expect(doc.members.names[0]).toEqual "our user name"
+        # expect(doc.members.names[0]).toEqual "the user name"
         asyncSpecDone()
       asyncSpecWait()
