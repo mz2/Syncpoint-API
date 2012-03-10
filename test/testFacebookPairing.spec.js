@@ -81,7 +81,7 @@ describe("pairing with facebook", function() {
         asyncSpecWait()
     })
     it("should update the user doc", function() {
-        coux([server, '_users', handshakeDoc.session.user_id], e(function(err, user) {
+        coux([server, '_users', handshakeDoc.user_id], e(function(err, user) {
             console.log("user",user.full_name)
             expect(user.state).toEqual('has-control')
             expect(user.oauth.consumer_keys[handshakeDoc.oauth_creds.consumer_key])
