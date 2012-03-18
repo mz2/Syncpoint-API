@@ -20,39 +20,37 @@ var SyncpointAPI = require('../lib/syncpoint-api'),
 // tests should also be capable of testing other implementations
 // eg: integration tests
 
-var testConfig = {
-    "apps" : {
-        "test-app" : {
-            "host" : "http://localhost:5984",
-            "handshake-db" : "test-handshake"
-        }
-    }
-}
+var testConfig = require('./testConfig');
+
 
 function smallRand() {
     return Math.random().toString().substr(2,4);
 };
 
-var db = testConfig.apps['test-app'].host + '/' + testConfig.apps['test-app']["handshake-db"];
+var handshake_db = testConfig.host + '/' + testConfig.handshake_db;
 // setup the database
-var server = testConfig.apps['test-app'].host;
+var server = testConfig.host;
 
 describe("pairing with facebook", function() {
     var handshakeId, handshakeDoc, userControlDb;
-    it("with a handshake db", function() {
-        coux.del(db, function() {
-            coux.put(db, function(err, ok) {
-                expect(err).toEqual(false)
-                expect(ok.ok).toEqual(true)
-                var syncpoint = new SyncpointAPI(testConfig);
-                syncpoint.start();
+    it("should create the handshake db on the server", function() {
+        coux.del(handshake_db, function() {
+            var syncpoint = new SyncpointAPI(testConfig);
+            syncpoint.start(function(err) {
                 console.log("syncpoint started")
-                asyncSpecDone()
-            })
-        })
+                coux(handshake_db, function(err, info) {
+                    console.log("handshake db info", info)
+                    expect(err).toEqual(false)
+                    expect(info.db_name).toEqual(testConfig.handshake_db)
+                    asyncSpecDone()
+                })
+            });
+        });
         asyncSpecWait()
-    })
+    });
+
     it("and a handshake doc", function() {
+        console.log("testing handshake");
         var handshakeDoc = {
             oauth_creds : {
               consumer_key: smallRand(),
@@ -64,15 +62,16 @@ describe("pairing with facebook", function() {
            "fb_access_token": "stubbed-token",
            "state": "new"
         };
-        coux.post(db, handshakeDoc, function(err, ok) {
+        coux.post(handshake_db, handshakeDoc, function(err, ok) {
             expect(err).toEqual(false)
+            console.log("did handshake", ok);
             handshakeId = ok.id;
             asyncSpecDone()
         })
         asyncSpecWait()
     })
     it("when the doc is active", function() {
-        testHelper.waitForDoc(db, handshakeId, 1, function(err, doc) {
+        testHelper.waitForDoc(handshake_db, handshakeId, 1, function(err, doc) {
             expect(err).toEqual(false)
             expect(doc.state).toEqual("active")
             handshakeDoc = doc
