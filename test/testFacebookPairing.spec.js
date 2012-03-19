@@ -98,6 +98,13 @@ describe("pairing with facebook", function() {
         })
         asyncSpecWait()
     })
-    
+    it("should install the control design doc", function() {
+        coux([server, userControlDb, "_design/control"], function(err, doc) {
+            expect(err).toEqual(false)
+            expect(doc.views || false).not.toEqual(false)
+            asyncSpecDone()
+        })
+        asyncSpecWait()
+    })
 })
 

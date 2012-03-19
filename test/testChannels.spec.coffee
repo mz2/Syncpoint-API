@@ -2,31 +2,24 @@ coux = require('coux').coux
 userChannelControl = require '../lib/userChannelControl'
 docstate = require('docstate')
 testHelper = require('./testHelper')
+testConfig = require('./testConfig');
 
-testAppConfig = 
-  "host" : "http://localhost:5984"
-  "control-db" : "test-control",
-  channelTemplate : "test-template"
-testDb = [testAppConfig.host,  testAppConfig["control-db"]].join '/'
-testTemplate = [testAppConfig.host,  testAppConfig["channelTemplate"]].join '/'
+# testConfig = 
+#   "host" : "http://localhost:5984"
+#   "control-db" : "test-control",
+#   channelTemplate : "test-template"
+# testDb = [testConfig.host,  testConfig["control-db"]].join '/'
+# testTemplate = [testConfig.host,  testConfig["channelTemplate"]].join '/'
 
 
 bindControlDb = () ->
+  userChannelControl.bindToControlDb("test-control", testConfig)
+  
   control = docstate.control()
-  userChannelControl.bind(control, testAppConfig, testAppConfig["control-db"])
+  userChannelControl.bind(control, testConfig, testConfig["control-db"])
   control.start()
   coux.subscribeDb(testDb,(change) ->
     control.handle(change.doc))
-
-
-# waitForDoc = (db, id, seq, cb) ->
-#   couxOpts = 
-#     url : db+"/_changes?filter=_doc_ids&since="+seq+"&include_docs=true&feed=longpoll"
-#     agent : false
-#   coux.post couxOpts, {"doc_ids": [ id]}, (err, resp) ->
-#     # console.log err, resp
-#     cb(err, resp.results[0].doc)
-#   
 
 createTemplate = (cb) ->
   coux.del testTemplate, ->
@@ -78,20 +71,20 @@ describe 'userChannelControl', ->
       asyncSpecWait()
         
     it 'should set up a cloud database', ->
-      coux [testAppConfig.host, cloudDb], (err, info) ->
+      coux [testConfig.host, cloudDb], (err, info) ->
         expect(info.db_name).toEqual cloudDb
         changesPromise.stop()
         asyncSpecDone()
       asyncSpecWait()
       
     it 'should install the channel template', ->
-      coux [testAppConfig.host, cloudDb, 'test-doc'], (err, doc) ->
+      coux [testConfig.host, cloudDb, 'test-doc'], (err, doc) ->
         expect(doc.foobar).toEqual "ok"
         asyncSpecDone()
       asyncSpecWait()
 
     it '[pending] should add the user to the security object members list', ->
-      coux [testAppConfig.host, cloudDb, '_security'], (err, doc) ->
+      coux [testConfig.host, cloudDb, '_security'], (err, doc) ->
         expect(doc.members).toBeDefined()
         # expect(doc.members.names[0]).toEqual "the user name"
         asyncSpecDone()
