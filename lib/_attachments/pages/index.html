@@ -74,8 +74,8 @@
     <script src="../app/app.js"></script>
 
     <script id="allUsersWithApp" type="text/template">
-      <h2>All the users</h2>
-      <p>Total Rows: {{rows.length}}</p>
+      <h2>All Users</h2>
+      <p>Total: {{rows.length}}</p>
       <ul>
       {{#rows}}
         <li>{{value}} - {{key}} - View <a href="#channels/by-user/{{id}}">channels</a></li>
@@ -96,7 +96,7 @@
     </script>
     
     <script id="appsWithUserCount" type="text/template">
-      <h2>All apps</h2>
+      <h2>All Apps</h2>
       <p>Total Rows: {{rows.length}}</p>
       <ul>
       {{#rows}}
