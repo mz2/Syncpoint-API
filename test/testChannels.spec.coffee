@@ -13,7 +13,7 @@ testConfig = require('./testConfig');
 
 
 bindControlDb = () ->
-  userChannelControl.bindToControlDb("test-control", testConfig)
+  userChannelControl.bindToControlDb("test-control", "test-app", testConfig)
   
   control = docstate.control()
   userChannelControl.bind(control, testConfig, testConfig["control-db"])

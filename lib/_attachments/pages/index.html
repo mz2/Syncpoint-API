@@ -78,7 +78,7 @@
       <p>Total: {{rows.length}}</p>
       <ul>
       {{#rows}}
-        <li>{{value}} - {{key}} - View <a href="#channels/by-user/{{id}}">channels</a></li>
+        <li>{{value.name}} - {{key}} - View <a href="#channels/by-user/{{id}}">channels</a></li>
       {{/rows}}
       </ul>
     </script>
@@ -88,9 +88,8 @@
       <p>Total Rows: {{rows.length}}</p>
       <ul>
       {{#rows}}
-        <li>{{value}}
-          - View <a href="#users/by-app/{{id}}">users</a> or 
-          <a href="#channels/by-app/{{id}}">channels</a></li>
+        <li>{{value.name}}
+          - View <a href="#channels/by-user/{{id}}">channels</a></li>
       {{/rows}}
       </ul>
     </script>
@@ -102,6 +101,42 @@
       {{#rows}}
         <li><strong>{{key}}</strong> - <a href="#users/by-app/{{key}}">{{value}} {{users}}</a> - view 
         <a href="#channels/by-app/{{key}}">channels</a></li>
+      {{/rows}}
+      </ul>
+    </script>
+    
+    <script id="allChannels" type="text/template">
+      <h2>All Channels</h2>
+      <p>Total: {{rows.length}}</p>
+      <ul>
+      {{#rows}}
+        <li>{{doc.name}} - {{value}} - {{doc.owner_id}}
+          - <a href="/_utils/document.html?sp_control/{{id}}">view info</a>
+          - <a href="/_utils/database.html?{{doc.cloud_database}}">view data</a></li>
+      {{/rows}}
+      </ul>
+    </script>
+    
+    <script id="channelByApp" type="text/template">
+      <h2>Channels for {{app_id}}</h2>
+      <p>Total: {{rows.length}}</p>
+      <ul>
+      {{#rows}}
+        <li>{{doc.name}} - {{doc.owner_id}}
+          - <a href="/_utils/document.html?sp_control/{{id}}">view info</a>
+          - <a href="/_utils/database.html?{{doc.cloud_database}}">view data</a></li>
+      {{/rows}}
+      </ul>
+    </script>
+    
+    <script id="channelByUser" type="text/template">
+      <h2>Channels for {{user_id}}</h2>
+      <p>Total: {{rows.length}}</p>
+      <ul>
+      {{#rows}}
+        <li>{{doc.name}} - {{doc.owner_id}}
+          - <a href="/_utils/document.html?sp_control/{{id}}">view info</a>
+          - <a href="/_utils/database.html?{{doc.cloud_database}}">view data</a></li>
       {{/rows}}
       </ul>
     </script>
