@@ -2,6 +2,7 @@
     "host" : "http://localhost:5984",
     "config_db" : "sp_config",
     "handshake_db" : "sp_handshake",
+    "global_control_db" : "sp_control",
     "users_db" : "_users",
     "comment on users_db" : 
     "this must be the same as the authentication_db as set in the CouchDB configuration"
