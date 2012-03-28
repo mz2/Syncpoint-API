@@ -52,13 +52,6 @@
     </div>
 
     <div class="container" id="main-content">
-
-      <h1>Applications</h1>
-      <h2>All Apps</h2>
-      <p>View Users and Channels for each app.</p>
-      <ul class="view">
-      </ul>
-
     </div> <!-- /container -->
 
     <!-- Le javascript
@@ -81,6 +74,25 @@
         <li>{{value.name}} - {{key}} - View <a href="#channels/by-user/{{id}}">channels</a></li>
       {{/rows}}
       </ul>
+    </script>
+    
+    <script id="newAdminSessions" type="text/template">
+      <h2>Sessions Awaiting Admin Approval</h2>
+      <p>Total: {{rows.length}}</p>
+      <ul>
+      {{#rows}}
+        <li><strong>{{doc.session_token}}</strong> - {{doc.app_id}} - <a href="#sessions/verify/{{id}}">approval workflow</a></li>
+      {{/rows}}
+      </ul>
+    </script>
+    
+    <script id="verifySession" type="text/template">
+      <h2>Verify Session {{_id}}</h2>
+      <p>To activate this session, first you must verify the authentication code with the users device.
+        Then you will pick the user account to connect the session with. If the user is new, you create a 
+        new user account. Otherwise, join an existing account.</p>
+      <p>This code should be displayed on the device pairing screen: <pre>{{session_token}}</pre>
+        Is this the code shown? <button class="yes">Yes, let&apos;s pick a user</button> <a href="#apps">No, take me back to the list of session to approve.</a></p>
     </script>
     
     <script id="usersByApp" type="text/template">
