@@ -42,21 +42,26 @@ exports.awesome = function(test) {
   },1 * 1000);
 };
 
-var handshakeId, handshakeDoc, userControlDb;
-test("should create the handshake db on the server", function(test) {
-  coux.del(handshake_db, function() {
-      var syncpoint = new SyncpointAPI(testConfig);
-      syncpoint.start(function(err) {
-          console.log("syncpoint started")
-          coux(handshake_db, function(err, info) {
-              console.log("handshake db info", info)
-              test.expect(err).toEqual(false)
-              test.expect(info.db_name).toEqual(testConfig.handshake_db)
-              test.done()
-          })
+coux.del(handshake_db, function() {
+  var syncpoint = new SyncpointAPI(testConfig);
+  syncpoint.start(function(err) {
+    console.log("syncpoint started")
+    test("should create the handshake db on the server", function(test) {
+      console.log("should create the handshake db on the server")
+      coux(handshake_db, function(err, info) {
+        console.log("handshake db info", info)
+        test.ok(err === false)
+        test.ok(info.db_name == testConfig.handshake_db)
+        test.end()
       });
-  });
+    });
+  })
 })
+
+return
+
+var handshakeId, handshakeDoc, userControlDb;
+
 
 
 test("and a handshake doc", function(test) {
@@ -73,45 +78,42 @@ test("and a handshake doc", function(test) {
        "state": "new"
     };
     coux.post(handshake_db, handshakeDoc, function(err, ok) {
-        test.expect(err).toEqual(false)
+        test.ok(err===false)
         console.log("did handshake", ok);
         handshakeId = ok.id;
-        test.done()
+        test.end()
     })
 })
-    
-    
-    //     it("when the doc is active", function(test) {
-    //         testHelper.waitForDoc(handshake_db, handshakeId, 1, function(err, doc) {
-    //             expect(err).toEqual(false)
-    //             expect(doc.state).toEqual("active")
-    //             handshakeDoc = doc
-    //             test.done()
-    //         })
-    //     })
-    //     it("should update the user doc", function(test) {
-    //         coux([server, testConfig.users_db, handshakeDoc.user_id], e(function(err, user) {
-    //             console.log("user",user.full_name)
-    //             expect(user.state).toEqual('has-control')
-    //             expect(user.oauth.consumer_keys[handshakeDoc.oauth_creds.consumer_key])
-    //                 .toEqual(handshakeDoc.oauth_creds.consumer_secret);
-    //             expect(user.control_database).toBeDefined()
-    //             userControlDb = user.control_database;
-    //             test.done()
-    //         }))
-    //     })
-    //     it("should create the control database", function(test) {
-    //         coux([server, userControlDb], function(err, ok) {
-    //             expect(err).toEqual(false)
-    //             test.done()
-    //         })
-    //     })
-    //     it("should install the control design doc", function(test) {
-    //         coux([server, userControlDb, "_design/control"], function(err, doc) {
-    //             expect(err).toEqual(false)
-    //             expect(doc.views || false).not.toEqual(false)
-    //             test.done()
-    //         })
-    //     })
-    // })
-    // 
+
+test("when the doc is active", function(test) {
+    coux.waitForDoc(handshake_db, handshakeId, 1, function(err, doc) {
+        test.ok(err===false)
+        test.ok(doc.state=="xactive")
+        handshakeDoc = doc
+        test.end()
+    })
+})
+test("should update the user doc", function(test) {
+    coux([server, testConfig.users_db, handshakeDoc.user_id], e(function(err, user) {
+        console.log("user",user.full_name)
+        test.ok(user.state==='has-control')
+        test.ok(user.oauth.consumer_keys[handshakeDoc.oauth_creds.consumer_key] === handshakeDoc.oauth_creds.consumer_secret);
+        test.ok(user.control_database)
+        userControlDb = user.control_database;
+        test.end()
+    }))
+})
+test("should create the control database", function(test) {
+    coux([server, userControlDb], function(err, ok) {
+        test.ok(err===false)
+        test.end()
+    })
+})
+test("should install the control design doc", function(test) {
+    coux([server, userControlDb, "_design/control"], function(err, doc) {
+        test.ok(err===false)
+        test.ok(doc.views === false)
+        test.end()
+    })
+})
+
