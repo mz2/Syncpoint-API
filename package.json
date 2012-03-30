@@ -1,0 +1,36 @@
+{
+  "name": "syncpoint-api-listeners",
+  "description": "User and device pairing, channel management",
+  "version": "0.1.0",
+  "homepage": "https://github.com/couchbaselabs/syncpoint-api-listeners",
+  "author": {
+    "name": "Chris Anderson",
+    "email": "jchris@apache.org",
+    "url": "http://jchrisa.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/couchbaselabs/syncpoint-api-listeners.git"
+  },
+  "bugs": {
+    "url": "https://github.com/couchbaselabs/syncpoint-api-listeners/issues"
+  },
+  "licenses": [
+    {
+      "type": "Apache",
+      "url": "https://github.com/couchbaselabs/syncpoint-api-listeners/blob/master/LICENSE"
+    }
+  ],
+  "main": "lib/syncpoint-api-listeners",
+  "engines": {
+    "node": "~0.6.10"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.3.6"
+  },
+  "keywords": []
+}
