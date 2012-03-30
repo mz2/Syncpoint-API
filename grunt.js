@@ -15,10 +15,10 @@ module.exports = function(grunt) {
     },
     jshint: {
       options: {
+        curly : false,
         laxcomma : true,
         laxbreak : true,
         asi : true,
-        curly: true,
         eqeqeq: false,
         immed: true,
         latedef: false,
@@ -27,12 +27,17 @@ module.exports = function(grunt) {
         sub: true,
         undef: true,
         boss: true,
+        couch : true,
         eqnull: true,
         node: true
       },
       globals: {
         exports: true,
-        $ : true
+        $ : true,
+        document : true,
+        coux : true,
+        Mustache : true,
+        Backbone : true
       }
     }
   });
