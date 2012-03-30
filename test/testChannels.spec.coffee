@@ -4,14 +4,6 @@ docstate = require('docstate')
 testHelper = require('./testHelper')
 testConfig = require('./testConfig');
 
-# testConfig = 
-#   "host" : "http://localhost:5984"
-#   "control-db" : "test-control",
-#   channelTemplate : "test-template"
-# testDb = [testConfig.host,  testConfig["control-db"]].join '/'
-# testTemplate = [testConfig.host,  testConfig["channelTemplate"]].join '/'
-
-
 bindControlDb = () ->
   userChannelControl.bindToControlDb("test-control", "test-app", testConfig)
   
