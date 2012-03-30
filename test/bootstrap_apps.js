@@ -9,13 +9,16 @@ var tap = require("tap")
 
 var syncpoint = new SyncpointAPI(testConfig);
 
-setTimeout(function() {
-  console.log("timeout");
-  process.exit()
-},2 * 1000);
+// so nodeunit will run us
+exports.awesome = function(test) {
+  setTimeout(function() {
+    console.log("timeout node tap for grunt");
+    test.done()
+  },1 * 1000);
+};
 
 // delete test databases so we can ensure they are created
-console.log("setup")
+console.log("setup bootstrap test")
 coux.del([testConfig.host, testConfig.config_db], function() {
     coux.del([testConfig.host, testConfig.handshake_db], function() {
       console.log("start")
