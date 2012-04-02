@@ -62,8 +62,6 @@ return
 
 var handshakeId, handshakeDoc, userControlDb;
 
-
-
 test("and a handshake doc", function(test) {
     console.log("testing handshake");
     var handshakeDoc = {

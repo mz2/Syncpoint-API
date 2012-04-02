@@ -1,7 +1,6 @@
 coux = require('coux').coux
 userChannelControl = require '../lib/userChannelControl'
 docstate = require('docstate')
-testHelper = require('./testHelper')
 testConfig = require('./testConfig');
 
 bindControlDb = () ->

@@ -17,6 +17,8 @@ exports.awesome = function(test) {
   },1 * 1000);
 };
 
+console.log(test)
+
 // delete test databases so we can ensure they are created
 console.log("setup bootstrap test")
 coux.del([testConfig.host, testConfig.config_db], function() {
