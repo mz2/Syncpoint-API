@@ -17,34 +17,24 @@ exports.awesome = function(test) {
   },1 * 1000);
 };
 
-console.log(test)
-
-// delete test databases so we can ensure they are created
-console.log("setup bootstrap test")
-coux.del([testConfig.host, testConfig.config_db], function() {
+test("bootstrap", function(t) {
+  t.plan(3)
+  // delete test databases so we can ensure they are created
+  coux.del([testConfig.host, testConfig.config_db], function() {
     coux.del([testConfig.host, testConfig.handshake_db], function() {
-      console.log("start")
-        syncpoint.start(function(err) {
-            test('create the config database', function(t) {
-                coux([testConfig.host, testConfig.config_db], function(err, ok) {
-                    t.ok(ok.db_name, "config db exists")
-                    t.end()
-                })
-            })
-            test("create the config db design doc", function(t) {
-                coux([testConfig.host, testConfig.config_db, "_design/config"], function(err, doc) {
-                    t.ok(doc.views, "config ddoc exists")
-                    t.end()
-                })
-            })
-            test('create the handshake database', function(t) {
-                coux([testConfig.host, testConfig.handshake_db], function(err, ok) {
-                    t.ok(ok.db_name, "handshake db exists")
-                    t.end()
-                })
-            })
-        });
+      syncpoint.start(function(err) {
+        coux([testConfig.host, testConfig.config_db], function(err, ok) {
+          t.ok(ok.db_name, "config db exists")
+        })
+        coux([testConfig.host, testConfig.config_db, "_design/config"], function(err, doc) {
+          t.ok(doc.views, "config ddoc exists")
+        })
+        coux([testConfig.host, testConfig.handshake_db], function(err, ok) {
+          t.ok(ok.db_name, "handshake db exists")
+        })
+      });
     });
+  });
 });
 
-
+test("quit", process.exit)

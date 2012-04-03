@@ -96,4 +96,4 @@ test('should set up a cloud database', function(test) {
 // });
 
 
-
+test("quit", process.exit)
