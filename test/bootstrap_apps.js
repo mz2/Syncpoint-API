@@ -14,19 +14,25 @@ exports.awesome = function(test) {
 };
 
 test("bootstrap", function(t) {
-  t.plan(3)
+  t.plan(4)
   // delete test databases so we can ensure they are created
   coux.del([testConfig.host, testConfig.config_db], function() {
     coux.del([testConfig.host, testConfig.handshake_db], function() {
       syncpoint.start(function(err) {
+        coux([testConfig.host, testConfig.users_db], function(err, ok) {
+          t.is(ok.db_name, testConfig.users_db, "users db exists")
+        })
+        coux([testConfig.host, testConfig.global_control_db], function(err, ok) {
+          t.is(ok.db_name, testConfig.global_control_db, "global_control_db db exists")
+        })
         coux([testConfig.host, testConfig.config_db], function(err, ok) {
-          t.ok(ok.db_name, "config db exists")
+          t.is(ok.db_name, testConfig.config_db, "config db exists")
         })
         coux([testConfig.host, testConfig.config_db, "_design/config"], function(err, doc) {
           t.ok(doc.views, "config ddoc exists")
         })
         coux([testConfig.host, testConfig.handshake_db], function(err, ok) {
-          t.ok(ok.db_name, "handshake db exists")
+          t.is(ok.db_name, testConfig.handshake_db, "handshake db exists")
         })
       });
     });
