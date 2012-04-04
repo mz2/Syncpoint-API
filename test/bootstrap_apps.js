@@ -14,7 +14,7 @@ exports.awesome = function(test) {
 };
 
 test("bootstrap", function(t) {
-  t.plan(4)
+  t.plan(5)
   // delete test databases so we can ensure they are created
   coux.del([testConfig.host, testConfig.config_db], function() {
     coux.del([testConfig.host, testConfig.handshake_db], function() {

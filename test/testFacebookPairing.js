@@ -79,8 +79,7 @@ coux.del(handshake_db, function() {
     })
     test("should update the user doc", function(test) {
         coux([server, testConfig.users_db, handshakeDoc.user_id], e(function(err, user) {
-            console.log("user",user.full_name)
-            // test.ok(user.oauth.consumer_keys[handshakeDoc.oauth_creds.consumer_key] === handshakeDoc.oauth_creds.consumer_secret);
+            test.is(user.oauth.consumer_keys[handshakeDoc.oauth_creds.consumer_key], handshakeDoc.oauth_creds.consumer_secret, "installed oauth creds");
             test.ok(user.control_database, "user has control database")
             userControlDb = user.control_database;
             test.end()

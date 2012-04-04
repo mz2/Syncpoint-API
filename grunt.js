@@ -33,7 +33,6 @@ module.exports = function(grunt) {
         node: true
       },
       globals: {
-        exports: true,
         $ : true,
         document : true,
         coux : true,
