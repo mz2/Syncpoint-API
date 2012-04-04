@@ -4,9 +4,8 @@ try {
 } catch(e) {}
 
 var SyncpointAPI = require('../lib/syncpoint-api')
-    , fs = require('fs')
-    , config = JSON.parse(fs.readFileSync(__dirname + "/../config.json", "utf8"))
-    , welcome = '\n\
+  , syncpointConfig = require('../lib/syncpointConfig')
+  , welcome = '\n\
 \n\
        ______                  __    __                  \n\
       / ____/____  __  _______/ /_  / /_  ____ _________ \n\
@@ -29,8 +28,15 @@ if (welcome.rainbow) {
     console.log(welcome);
     console.log("                             relaxing since 2011\n")
 }
-console.log("config:",config)
 
-var syncpoint = new SyncpointAPI(config);
-syncpoint.start();
+syncpointConfig.load(function(err, config) {
+  if (err) {
+    console.error("Error with config", err, config)
+  } else {
+    var syncpoint = new SyncpointAPI(config);
+    syncpoint.start();
+  }
+})
+
+
 
