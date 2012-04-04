@@ -18,9 +18,7 @@ module.exports = function(grunt) {
     },
     jshint: {
       options: {
-        curly : false,
-        laxcomma : true,
-        laxbreak : true,
+        // curly : false,
         asi : true,
         eqeqeq: false,
         immed: true,

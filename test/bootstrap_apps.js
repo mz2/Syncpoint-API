@@ -1,13 +1,9 @@
-var testConfig = require('./testConfig');
-
-var tap = require("tap")
-    , coux = require('coux').coux
-    , test = tap.test
-    , plan = tap.plan
-    , SyncpointAPI = require('../lib/syncpoint-api')
-    ;
-
-var syncpoint = new SyncpointAPI(testConfig);
+var testConfig = require('./testConfig'),
+  tap = require("tap"), 
+  coux = require('coux').coux,
+  test = tap.test, plan = tap.plan,
+  SyncpointAPI = require('../lib/syncpoint-api'),
+  syncpoint = new SyncpointAPI(testConfig);
 
 // so nodeunit will run us
 exports.awesome = function(test) {
