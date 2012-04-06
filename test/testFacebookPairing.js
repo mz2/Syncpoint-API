@@ -40,7 +40,6 @@ coux.del(handshake_db, function() {
   syncpoint.start(function(err) {
     console.log("syncpoint started")
     test("should create the handshake db on the server", function(test) {
-      console.log("should create the handshake db on the server")
       coux(handshake_db, function(err, info) {
         console.log("handshake db info", info)
         test.ok(err === false)
