@@ -94,6 +94,6 @@ test('should set up a cloud database', function(test) {
 //     test.end();
 //   });
 // });
-
+// todo test that replicating as the user works but replicating as someone else doesnt
 
 test("quit", process.exit)
