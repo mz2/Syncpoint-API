@@ -48,19 +48,21 @@ module.exports = function(grunt) {
   });
 
   // Default task.
+  
   grunt.registerTask('default', 'lint tap');
 
   grunt.registerMultiTask('tap', 'Run unit tests with tap.', function() {
     var done = this.async(),
       filepaths = grunt.file.expandFiles(this.file.src),
-      tap = cp.spawn(path.join(__dirname,"node_modules","tap","bin","tap.js"),["--timeout",3].concat(filepaths));
+      tap = cp.spawn(path.join(__dirname,"node_modules","tap","bin","tap.js"),["--tap","--timeout",3].concat(filepaths));
       
     tap.stdout.on('data', function (data) {
-      console.log(""+data);
+      var string = ""+data;
+        console.log(string.replace(/^\s*|\s*$/g, ''));
     });
     tap.stderr.on('data', function (data) {
-      console.error('stderr: ' + data);
-    });
+      var log = data.replace ? data.replace(/^\s*|\s*$/g, '') : data;
+      console.log("e: "+log);    });
 
     tap.on('exit', function (code) {
       if (code !== 0) {
