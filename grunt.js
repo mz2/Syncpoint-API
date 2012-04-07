@@ -54,7 +54,7 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('tap', 'Run unit tests with tap.', function() {
     var done = this.async(),
       filepaths = grunt.file.expandFiles(this.file.src),
-      tap = cp.spawn(path.join(__dirname,"node_modules","tap","bin","tap.js"),["--tap","--timeout",3].concat(filepaths));
+      tap = cp.spawn(path.join(__dirname,"node_modules","tap","bin","tap.js"),["--tap","--timeout",4].concat(filepaths));
       
     tap.stdout.on('data', function (data) {
       var string = ""+data;

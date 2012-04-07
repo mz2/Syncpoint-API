@@ -49,7 +49,7 @@ coux.del([testConfig.host, testConfig.handshake_db], function() {
                 coux([testConfig.host, testConfig.global_control_db, fizz.id], function(err, doc) {
                   t.notOk(err, "fizz doc saved to global control database")
                 })
-              },100);
+              },200);
             });
           })
         })
