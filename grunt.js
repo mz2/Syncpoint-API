@@ -9,7 +9,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: '<json:package.json>',
     tap: {
-      files: ['test/**/*.js']
+      files: ['test/**/*.js','test/**/*.coffee']
     },
     couchapp: {
       config_db: ['lib/design/config.js']
@@ -18,7 +18,7 @@ module.exports = function(grunt) {
       files: ['grunt.js', 'lib/*.js', 'lib/design/*.js', 'lib/design/config/app/*.js', 'test/**/*.js']
     },
     watch: {
-      files: '<config:lint.files>',
+      files: ['<config:lint.files>', '<config:tap.files>'],
       tasks: 'default'
     },
     jshint: {
@@ -54,7 +54,8 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('tap', 'Run unit tests with tap.', function() {
     var done = this.async(),
       filepaths = grunt.file.expandFiles(this.file.src),
-      tap = cp.spawn(path.join(__dirname,"node_modules","tap","bin","tap.js"),["--tap","--timeout",4].concat(filepaths));
+      log = false,
+      tap = cp.spawn(path.join(__dirname,"node_modules","tap","bin","tap.js"),[log ? "--tap" : "","--timeout",5].concat(filepaths));
       
     tap.stdout.on('data', function (data) {
       var string = ""+data;
@@ -62,7 +63,8 @@ module.exports = function(grunt) {
     });
     tap.stderr.on('data', function (data) {
       var log = data.replace ? data.replace(/^\s*|\s*$/g, '') : data;
-      console.log("e: "+log);    });
+      console.log("e: "+log);
+    });
 
     tap.on('exit', function (code) {
       if (code !== 0) {

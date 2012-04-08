@@ -20,9 +20,9 @@ coux.del([testConfig.host, testConfig.handshake_db], function() {
       t.plan(9)
       var sessionDoc = {
          "oauth_creds": {
-             "consumer_key": "x80ecfdaf1f4d2f40b9883e8ddb1bff30",
-             "consumer_secret": "xdeb36f6d0c7aad60a11bc10325b8d5a7",
-             "token_secret": "x47a30736ae27baac07ad7c274bf2073f",
+             "consumer_key": "x80ecfdafbaac07ad7c1f4d2f40b9883e8ddb1bff30",
+             "consumer_secret": "xdeb36f325b8d6d0c7aad60a11bc105a7",
+             "token_secret": "x47a30736ae27274bf2073f",
              "token": "x62c18b0cf5383c17d324d7e26377be43"
          },
          "type": "session-admin",
@@ -49,7 +49,7 @@ coux.del([testConfig.host, testConfig.handshake_db], function() {
                 coux([testConfig.host, testConfig.global_control_db, fizz.id], function(err, doc) {
                   t.notOk(err, "fizz doc saved to global control database")
                 })
-              },200);
+              },500);
             });
           })
         })

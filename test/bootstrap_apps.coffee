@@ -12,8 +12,8 @@ setup = (cb) ->
   coux.del [ testConfig.host, testConfig.config_db ], ->
     coux.del [ testConfig.host, testConfig.handshake_db ], cb
 
-test "database and design doc created by boostrap process", (t) ->
-  t.plan 5
+test "databases and design docs created by the boostrap process", (t) ->
+  t.plan 6
   setup ->
     syncpoint.start (err) ->
       coux [ host, testConfig.users_db ] , (err, ok) ->
@@ -22,10 +22,9 @@ test "database and design doc created by boostrap process", (t) ->
       coux [ host, testConfig.global_control_db ] , (err, ok) ->
         t.is ok.db_name, testConfig.global_control_db, "global_control_db db exists"
 
-      coux [ host, testConfig.config_db ], (err, ok) ->
-        t.is ok.db_name, testConfig.config_db, "config db exists"
-
       coux [ host, testConfig.config_db, "_design/config" ], (err, doc) ->
+        t.notOk (err and err.reason is "no_db_file"), "config db exists"
+        t.notOk err, "design doc created"
         t.ok doc.views, "config ddoc exists"
 
       coux [ host, testConfig.handshake_db ], (err, ok) ->
