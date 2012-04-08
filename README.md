@@ -1,31 +1,57 @@
 # Syncpoint API
 
-Couchbase Syncpoint will connect mobile devices to a Couchbase Server installation. Because devices have limited storage capacity, it's important to be able to select the relevant subset of data to sync with each user and device.
+Couchbase Syncpoint connects mobile devices to Apache CouchDB compatible storage, such as that offered by IrisCouch or Cloudant.
 
-This Syncpoint API package is only a small part of the larger whole. This package is responsible for reacting to user-driven configuration changes such as pairing devices with the cloud, and provisioning new channels.
+This Syncpoint API package is only a small part of the larger whole. This package implements user-driven remote configuration changes such as offline capable user signup, pairing new devices with the Syncpoint service, and provisioning databases in the cloud and across all of a users devices.
 
-The ultimate goals of Syncpoint are ambitious: connecting millions of users and devices to high throughput Couchbase Server clusters. More responsive sync will mean happier users.
+## Channels API
+
+Channels are the unit of sync. A channel is defined by who can access it, and which devices it appears on. If you are subscribed to a channel, you are (generally) gonna see all the data in that channel. Since channels are just CouchDB databases, [there's a ton of existing documentation about the security model](http://stackoverflow.com/questions/4055450/couchdb-authorization-on-a-per-database-basis).
+
+This can be used for all kinds of whatever: point-of-sale, retail, medical records (doctor with an iPad and limited wifi), military (need that data no matter what). [See these slides from Chicago's WindyCityGo conference for for inspiration of how you might structure an Syncpoint app.](http://dl.dropbox.com/u/14074521/syncpoint-windycity-small.pdf) (Note the OMG POP bragging has nothing to do with Syncpoint, they use Couchbase Server.)
 
 ## Today
 
-The code in this repository is experimental, but we can't build it all at once. And we've been making enough progress to warrant putting the code online. I can't tell you yet if these node.js scripts are prototypes or the real thing.
+The code in this repository is experimental, and we need your help. We in the process of cleaning up the build, install, and first run experience, as well as building example apps and documentation.
+
+Please make your voice heard on the mailing list if you are interested in particular features, etc: https://groups.google.com/forum/#!forum/mobile-couchbase
+
+### Get Started
+
+
+
+### News
+
+Removed dependency on Facebook Auth, instead you use whatever auth mechanism you want to on your server. We moved the example app away from Facebook and instead have auth based on the admin console CouchApp.
+
+Once you have started the server with `bin/run`, visit http://localhost:5984/sp_config/_design/config/pages/index.html
 
 ### What does it do?
 
-Right now, today, on my machine (at least once) it does this:
+Let us know how it works for you:
 
-* User can pair devices with Syncpoint cloud via Facebook.
-* Once paired, device code can provision a Channel, and the server will provision the cloud database to sync with.
+* User can pair devices with Syncpoint cloud via the admin console (planning Facebook example code as well).
+* Once paired, device code can create channels, and the server will provision the cloud database to sync with. These channels will show up on all of the user's devices by default.
 
-That's it.
+That's it. It's up to you what you put in the channels on the server side, and who has acces to them on their devies.
 
 There's not much more you need. See the **Longer term** section below for some ideas about where we go from here.
 
-## Coming soon
+## Getting Started
 
-Jens is working on a client library abstraction for iOS that will handle stuff like interacting with the server via the control channel to pair devices and provision databases.
+We are in the early stages of implementation so we could use your help giving user feedback and all kinds of code patches from improving the test suite to building more authentication adapters to documenting the document state machine model used.
 
-If you want to get a preview of what those interactions look like, check out the ["pairing" branch of Grocery Sync](https://github.com/couchbaselabs/iOS-Couchbase-Demo/tree/pairing) or wait for Jens' code, it'll be *much cleaner.* :)
+You'll know it's really usable when I publish it to [npm](http://npmjs.org).
+
+Until then install [Apache CouchDB](http://couchdb.apache.org/) (preferably version 1.2) and then install Syncpoint:
+
+    git clone git://github.com/couchbaselabs/Syncpoint-API.git
+    cd Syncpoint-API
+    bin/run
+
+This will prompt you for configuration information about your CouchDB server. If you want to see flashy colors, run the tests with `grunt`
+
+We have a unified [Syncpoint Client for iOS here](https://github.com/couchbaselabs/Syncpoint-iOS). (Be sure sure to clone it with `--recursive` to pick up the submodules.)
 
 You can also study these sequence diagrams: 
 
