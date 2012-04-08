@@ -1,7 +1,0 @@
-{
-  "config_db": "sp_config",
-  "handshake_db": "sp_handshake",
-  "global_control_db": "sp_control",
-  "host": "http://Administrator:ok@localhost:5984/",
-  "users_db": "_users"
-}
