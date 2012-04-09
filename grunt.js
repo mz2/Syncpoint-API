@@ -1,4 +1,5 @@
 var cp = require("child_process"),
+  syncpointHelpers = require('./lib/syncpointHelpers'),
   syncpointConfig = require("./lib/syncpointConfig"),
   couchapp = require('couchapp'),
   path = require('path');
@@ -10,9 +11,6 @@ module.exports = function(grunt) {
     pkg: '<json:package.json>',
     tap: {
       files: ['test/**/*.js','test/**/*.coffee']
-    },
-    couchapp: {
-      config_db: ['lib/design/config.js']
     },
     lint: {
       files: ['grunt.js', 'lib/*.js', 'lib/design/*.js', 'lib/design/config/app/*.js', 'test/**/*.js']
@@ -56,7 +54,7 @@ module.exports = function(grunt) {
       filepaths = grunt.file.expandFiles(this.file.src),
       log = process.env.TAP,
       tap = cp.spawn(path.join(__dirname,"node_modules","tap","bin","tap.js"),[log ? "--tap" : "","--timeout",5].concat(filepaths));
-    console.log("tap", filepaths)
+    // console.log("tap", filepaths)
     tap.stdout.on('data', function (data) {
       var string = ""+data;
         console.log(string.replace(/^\s*|\s*$/g, ''));
@@ -74,15 +72,15 @@ module.exports = function(grunt) {
     });
   });
   
-  grunt.registerMultiTask('couchapp', "Sync the Syncpoint admin couchapp", function() {
+  grunt.registerTask('couchapp', "Sync the Syncpoint admin couchapp", function() {
     var done = this.async(),
       task = this;
     syncpointConfig.load(function(err, config) {
-      couchapp.createApp(require(path.join(__dirname, task.file.src[0])), 
-        [config.host, config[task.file.dest]].join('/'), function(app) {
+      console.log("couchapp config", config)
+      couchapp.createApp(syncpointHelpers.configDDoc(config), 
+      [config.host, config.config_db].join('/'), function(app) {
         app.sync(done)
       })
     })
   })
-  
 };
