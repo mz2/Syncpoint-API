@@ -18,31 +18,40 @@ coux.del([testConfig.host, testConfig.users_db], function() {
   syncpoint.start(function(err) {
     test("creating an approved admin session", function(t) {
       t.plan(9)
-      var sessionDoc = {
-         "oauth_creds": {
+      var username = "Miyagi-pairing", pairingUserDoc = {
+        "_id": "org.couchdb.user:" + username,
+        "name": username,
+        "type": "user",
+        "sp_oauth": {
              "consumer_key": "x80ecfdafbaac07ad7c1f4d2f40b9883e8ddb1bff30",
              "consumer_secret": "xdeb36f325b8d6d0c7aad60a11bc105a7",
              "token_secret": "x47a30736ae27274bf2073f",
              "token": "x62c18b0cf5383c17d324d7e26377be43"
          },
-         "type": "session-admin",
-         "state": "approved",
-         "app_id": "demo-app",
-         "session_token": "583300807",
-         "user_full_name": "Chris"
+        "pairing_state": "approved", // only admin can write this
+        "pairing_type": "session-admin",
+        "pairing_token": 583300807,
+        "pairing_app_id": "test-app",
+        "user_full_name" : "宮城健介",
+        "roles": [],
+        "password": "Wax on"
       };
-      coux.post([testConfig.host, testConfig.users_db], sessionDoc, function(err, ok) {
-        t.notOk(err, 'saved the session')
-        coux.waitForDoc([testConfig.host, testConfig.users_db], ok.id, 2, function(err, doc) {
+      coux.post([testConfig.host, testConfig.users_db], pairingUserDoc, function(err, ok) {
+        t.notOk(err, 'saved the pairing-user')
+        console.log("waiting for doc", ok.id)
+        coux.waitForDoc([testConfig.host, testConfig.users_db], ok.id, 
+          2, function(err, doc) {
           t.is(ok.id, doc._id, "loaded the doc")
-          t.is("active", doc.state, "session is active")
+          t.is("paired", doc.state, "pairing user is paired")
           t.ok(doc.user_id, "has a user_id")
           // t.is
+          console.log("got doc", doc._id)
           coux([testConfig.host, testConfig.users_db, doc.user_id], function(err, user) {
             t.notOk(err, "user doc exists");
-            t.is(user.oauth.consumer_keys[sessionDoc.oauth_creds.consumer_key], sessionDoc.oauth_creds.consumer_secret, "set oauth")
+            t.is(user.oauth.consumer_keys[pairingUserDoc.sp_oauth.consumer_key], pairingUserDoc.sp_oauth.consumer_secret, "set oauth")
             t.ok(user.control_database, "has control database")
             // activating a session sets up replication from the new control database to the global control database
+            // you could package this as an assertion (can replicate)
             coux.post([testConfig.host, user.control_database], {"fizz":"buzz"}, function(err, fizz) {
               t.notOk(err, "test doc saved to users control database");
               setTimeout(function() {

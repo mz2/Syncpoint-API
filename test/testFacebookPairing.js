@@ -63,13 +63,15 @@ coux.del(users_db, function() {
         };
         coux.post(users_db, handshakeDoc, function(err, ok) {
             test.ok(err===false)
-            console.log("did handshake", ok);
+            console.log("did handshake", ok._id);
             handshakeId = ok.id;
             test.end()
         })
     })
     test("when the doc is active", function(test) {
+      console.log("wait for doc", handshakeId);
         coux.waitForDoc(users_db, handshakeId, 2, function(err, doc) {
+          console.log("got doc", doc._id);
             test.ok(err===false)
             test.is(doc.state,"active")
             handshakeDoc = doc
