@@ -33,6 +33,7 @@ syncpointConfig.load(function(err, config) {
   if (err) {
     console.error("Error with config", err, config)
   } else {
+    console.log("config".green || "config", config)
     var syncpoint = new SyncpointAPI(config);
     syncpoint.start();
   }
