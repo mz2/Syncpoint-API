@@ -10,7 +10,7 @@ syncpoint = new SyncpointAPI(testConfig)
 # delete test databases so we can ensure they are created according to config
 setup = (cb) ->
   coux.del [ testConfig.host, testConfig.config_db ], ->
-    coux.del [ testConfig.host, testConfig.handshake_db ], cb
+    coux.del [ testConfig.host, testConfig.users_db ], cb
 
 test "databases and design docs created by the boostrap process", (t) ->
   t.plan 6
@@ -27,7 +27,7 @@ test "databases and design docs created by the boostrap process", (t) ->
         t.notOk err, "design doc created"
         t.ok doc.views, "config ddoc exists"
 
-      coux [ host, testConfig.handshake_db ], (err, ok) ->
-        t.is ok.db_name, testConfig.handshake_db, "handshake db exists"
+      coux [ host, testConfig.users_db ], (err, ok) ->
+        t.is ok.db_name, testConfig.users_db, "handshake db exists"
 
 test "quit", process.exit

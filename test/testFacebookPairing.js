@@ -30,20 +30,20 @@ function smallRand() {
     return Math.random().toString().substr(2,4);
 }
 
-var handshake_db = testConfig.host + '/' + testConfig.handshake_db;
+var users_db = testConfig.host + '/' + testConfig.users_db;
 // setup the database
 var server = testConfig.host;
 
 var handshakeId, handshakeDoc, userControlDb;
-coux.del(handshake_db, function() {
+coux.del(users_db, function() {
   var syncpoint = new SyncpointAPI(testConfig);
   syncpoint.start(function(err) {
     console.log("syncpoint started")
     test("should create the handshake db on the server", function(test) {
-      coux(handshake_db, function(err, info) {
+      coux(users_db, function(err, info) {
         console.log("handshake db info", info)
         test.ok(err === false)
-        test.ok(info.db_name == testConfig.handshake_db)
+        test.ok(info.db_name == testConfig.users_db)
         test.end()
       });
     });
@@ -61,7 +61,7 @@ coux.del(handshake_db, function() {
            "fb_access_token": "stubbed-token",
            "state": "new"
         };
-        coux.post(handshake_db, handshakeDoc, function(err, ok) {
+        coux.post(users_db, handshakeDoc, function(err, ok) {
             test.ok(err===false)
             console.log("did handshake", ok);
             handshakeId = ok.id;
@@ -69,7 +69,7 @@ coux.del(handshake_db, function() {
         })
     })
     test("when the doc is active", function(test) {
-        coux.waitForDoc(handshake_db, handshakeId, 2, function(err, doc) {
+        coux.waitForDoc(users_db, handshakeId, 2, function(err, doc) {
             test.ok(err===false)
             test.is(doc.state,"active")
             handshakeDoc = doc

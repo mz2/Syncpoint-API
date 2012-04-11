@@ -13,7 +13,7 @@ var testConfig = require('./testConfig');
 
 
 var handshakeId, handshakeDoc, userControlDb;
-coux.del([testConfig.host, testConfig.handshake_db], function() {
+coux.del([testConfig.host, testConfig.users_db], function() {
   var syncpoint = new SyncpointAPI(testConfig);
   syncpoint.start(function(err) {
     test("creating an approved admin session", function(t) {
@@ -31,9 +31,9 @@ coux.del([testConfig.host, testConfig.handshake_db], function() {
          "session_token": "583300807",
          "user_full_name": "Chris"
       };
-      coux.post([testConfig.host, testConfig.handshake_db], sessionDoc, function(err, ok) {
+      coux.post([testConfig.host, testConfig.users_db], sessionDoc, function(err, ok) {
         t.notOk(err, 'saved the session')
-        coux.waitForDoc([testConfig.host, testConfig.handshake_db], ok.id, 2, function(err, doc) {
+        coux.waitForDoc([testConfig.host, testConfig.users_db], ok.id, 2, function(err, doc) {
           t.is(ok.id, doc._id, "loaded the doc")
           t.is("active", doc.state, "session is active")
           t.ok(doc.user_id, "has a user_id")
