@@ -74,23 +74,23 @@ coux.del(users_db, function() {
             test.end()
         })
     })
-    test("when the doc is active", function(test) {
+    test("when the doc is paired", function(test) {
       console.log("wait for doc", handshakeId);
         coux.waitForDoc(users_db, handshakeId, 0, function(err, doc) {
-          if (doc.pairing_state != "active") {
+          if (doc.pairing_state != "paired") {
             console.log("skip doc", doc.pairing_state);
             return true;
           }
           console.log("got doc", doc._id);
             test.ok(err===false)
-            test.is(doc.state,"active")
+            test.is(doc.state,"paired")
             pairingUserDoc = doc
             test.end()
         })
     })
     test("should update the user doc", function(test) {
         coux([server, testConfig.users_db, pairingUserDoc.user_id], e(function(err, user) {
-            test.is(user.oauth.consumer_keys[pairingUserDoc.oauth_creds.consumer_key], pairingUserDoc.oauth_creds.consumer_secret, "installed oauth creds");
+            test.is(user.oauth.consumer_keys[pairingUserDoc.sp_oauth.consumer_key], pairingUserDoc.sp_oauth.consumer_secret, "installed oauth creds");
             test.ok(user.control_database, "user has control database")
             userControlDb = user.control_database;
             test.end()

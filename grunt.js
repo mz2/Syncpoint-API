@@ -53,7 +53,7 @@ module.exports = function(grunt) {
     var done = this.async(),
       filepaths = grunt.file.expandFiles(this.file.src),
       log = process.env.TAP,
-      tap = cp.spawn(path.join(__dirname,"node_modules","tap","bin","tap.js"),[log ? "--tap" : "","--timeout",5].concat(filepaths));
+      tap = cp.spawn(path.join(__dirname,"node_modules","tap","bin","tap.js"),[log ? "--tap" : "","--timeout",20].concat(filepaths));
     // console.log("tap", filepaths)
     tap.stdout.on('data', function (data) {
       var string = ""+data;
