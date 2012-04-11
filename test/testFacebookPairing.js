@@ -34,7 +34,7 @@ var users_db = testConfig.host + '/' + testConfig.users_db;
 // setup the database
 var server = testConfig.host;
 
-var handshakeId, handshakeDoc, userControlDb;
+var handshakeId, pairingUserDoc, userControlDb;
 coux.del(users_db, function() {
   var syncpoint = new SyncpointAPI(testConfig);
   syncpoint.start(function(err) {
@@ -48,20 +48,26 @@ coux.del(users_db, function() {
       });
     });
     
-    test("and a handshake doc", function(test) {
-        console.log("testing handshake");
-        var handshakeDoc = {
-            oauth_creds : {
-              consumer_key: smallRand(),
-              consumer_secret: smallRand(),
-              token_secret: smallRand(),
-              token: smallRand()
-            },
-           "type": "session-fb",
-           "fb_access_token": "stubbed-token",
-           "state": "new"
+    test("and a pairing user doc", function(test) {
+        console.log("testing pairing user");
+        var username = "test-fb-pairing", pairingUserDoc = {
+          "_id": "org.couchdb.user:" + username,
+          "name": username,
+          "type": "user",
+          "sp_oauth": {
+            consumer_key: smallRand(),
+            consumer_secret: smallRand(),
+            token_secret: smallRand(),
+            token: smallRand()
+          },
+          "pairing_state": "new", // only admin can write this
+          "pairing_type": "session-fb",
+          "pairing_token": "stubbed-token",
+          "pairing_app_id": "test-app",
+          "roles": [],
+          "password": "Wax on"
         };
-        coux.post(users_db, handshakeDoc, function(err, ok) {
+        coux.post(users_db, pairingUserDoc, function(err, ok) {
             test.ok(err===false)
             console.log("did handshake", ok._id);
             handshakeId = ok.id;
@@ -70,17 +76,21 @@ coux.del(users_db, function() {
     })
     test("when the doc is active", function(test) {
       console.log("wait for doc", handshakeId);
-        coux.waitForDoc(users_db, handshakeId, 2, function(err, doc) {
+        coux.waitForDoc(users_db, handshakeId, 0, function(err, doc) {
+          if (doc.pairing_state != "active") {
+            console.log("skip doc", doc.pairing_state);
+            return true;
+          }
           console.log("got doc", doc._id);
             test.ok(err===false)
             test.is(doc.state,"active")
-            handshakeDoc = doc
+            pairingUserDoc = doc
             test.end()
         })
     })
     test("should update the user doc", function(test) {
-        coux([server, testConfig.users_db, handshakeDoc.user_id], e(function(err, user) {
-            test.is(user.oauth.consumer_keys[handshakeDoc.oauth_creds.consumer_key], handshakeDoc.oauth_creds.consumer_secret, "installed oauth creds");
+        coux([server, testConfig.users_db, pairingUserDoc.user_id], e(function(err, user) {
+            test.is(user.oauth.consumer_keys[pairingUserDoc.oauth_creds.consumer_key], pairingUserDoc.oauth_creds.consumer_secret, "installed oauth creds");
             test.ok(user.control_database, "user has control database")
             userControlDb = user.control_database;
             test.end()

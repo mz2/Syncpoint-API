@@ -12,7 +12,7 @@ var testConfig = require('./testConfig');
 
 
 
-var handshakeId, handshakeDoc, userControlDb;
+var handshakeId, pairingUserDoc, userControlDb;
 coux.del([testConfig.host, testConfig.users_db], function() {
   var syncpoint = new SyncpointAPI(testConfig);
   syncpoint.start(function(err) {
@@ -41,11 +41,12 @@ coux.del([testConfig.host, testConfig.users_db], function() {
         console.log("waiting for doc", ok.id)
         coux.waitForDoc([testConfig.host, testConfig.users_db], ok.id, 
           0, function(err, doc) {
+            console.log("waited", doc._id)
             if (doc.pairing_state !== "paired") {
               console.log("return", doc.pairing_state);
-              return;
+              return true;
             } else {
-              console.log("test", doc.pairing_state);
+              console.log("run", doc.pairing_state);
             }
           t.is(ok.id, doc._id, "loaded the doc")
           t.is("paired", doc.pairing_state, "pairing user is paired")
