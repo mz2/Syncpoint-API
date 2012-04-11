@@ -40,9 +40,15 @@ coux.del([testConfig.host, testConfig.users_db], function() {
         t.notOk(err, 'saved the pairing-user')
         console.log("waiting for doc", ok.id)
         coux.waitForDoc([testConfig.host, testConfig.users_db], ok.id, 
-          2, function(err, doc) {
+          0, function(err, doc) {
+            if (doc.pairing_state !== "paired") {
+              console.log("return", doc.pairing_state);
+              return;
+            } else {
+              console.log("test", doc.pairing_state);
+            }
           t.is(ok.id, doc._id, "loaded the doc")
-          t.is("paired", doc.state, "pairing user is paired")
+          t.is("paired", doc.pairing_state, "pairing user is paired")
           t.ok(doc.user_id, "has a user_id")
           // t.is
           console.log("got doc", doc._id)
