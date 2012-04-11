@@ -30,8 +30,6 @@ function createDatabase(cb) {
   });
 }
 
-
-
 var changesPromise = false;
 test('with a control database', function(test) {
   createDatabase(function() {
