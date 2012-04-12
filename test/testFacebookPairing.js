@@ -83,7 +83,7 @@ coux.del(users_db, function() {
           }
           console.log("got doc", doc._id);
             test.ok(err===false)
-            test.is(doc.state,"paired")
+            test.is(doc.pairing_state,"paired")
             pairingUserDoc = doc
             test.end()
         })
