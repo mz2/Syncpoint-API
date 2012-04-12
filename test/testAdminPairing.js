@@ -32,7 +32,7 @@ coux.del([testConfig.host, testConfig.users_db], function() {
         "pairing_type": "console",
         "pairing_token": 583300807,
         "pairing_app_id": "test-app",
-        "user_full_name" : "宮城健介",
+        "pairing_full_name" : "宮城健介",
         "roles": [],
         "password": "Wax on"
       };
