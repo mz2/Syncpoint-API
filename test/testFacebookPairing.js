@@ -89,7 +89,7 @@ coux.del(users_db, function() {
         })
     })
     test("should update the user doc", function(test) {
-        coux([server, testConfig.users_db, pairingUserDoc.user_id], e(function(err, user) {
+        coux([server, testConfig.users_db, pairingUserDoc.owner_id], e(function(err, user) {
             test.is(user.oauth.consumer_keys[pairingUserDoc.sp_oauth.consumer_key], pairingUserDoc.sp_oauth.consumer_secret, "installed oauth creds");
             test.ok(user.control_database, "user has control database")
             userControlDb = user.control_database;

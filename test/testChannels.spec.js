@@ -50,13 +50,13 @@ test('with a channel template', function(test) {
 });
 
 
-var chId, cloudDb, newChannelDoc;
-chId = false;
-cloudDb = false;
-newChannelDoc = {
-  type: "channel",
-  state: "new"
-};
+var chId = false,
+  cloudDb = false,
+  newChannelDoc = {
+    type: "channel",
+    state: "new",
+    owner_id : "Daniel LaRusso"
+  };
 test("with a new channel document", function(test) {
   coux.post(testDb, newChannelDoc, function(err, ok) {
     chId = ok.id;
@@ -93,5 +93,24 @@ test('should set up a cloud database', function(test) {
 //   });
 // });
 // todo test that replicating as the user works but replicating as someone else doesnt
+
+
+test("with a new channel document without owner_id", function(test) {
+  coux.post(testDb, {
+    type: "channel",
+    state: "new"
+  }, function(err, ok) {
+    chId = ok.id;
+    test.ok(ok.id);
+    test.end();
+  });
+});
+test('should update the document with an error', function(test) {
+  coux.waitForDoc(testDb, chId, 1, function(err, doc) {
+    if (doc.state != "error") return true;
+    test.is(doc.state, "error");
+    test.end();
+  });
+});
 
 test("quit", process.exit)

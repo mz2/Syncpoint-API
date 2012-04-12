@@ -50,10 +50,10 @@ coux.del([testConfig.host, testConfig.users_db], function() {
             }
           t.is(ok.id, doc._id, "loaded the doc")
           t.is("paired", doc.pairing_state, "pairing user is paired")
-          t.ok(doc.user_id, "has a user_id")
+          t.ok(doc.owner_id, "has a owner_id")
           // t.is
           console.log("got doc", doc._id)
-          coux([testConfig.host, testConfig.users_db, doc.user_id], function(err, user) {
+          coux([testConfig.host, testConfig.users_db, doc.owner_id], function(err, user) {
             t.notOk(err, "user doc exists");
             t.is(user.oauth.consumer_keys[pairingUserDoc.sp_oauth.consumer_key], pairingUserDoc.sp_oauth.consumer_secret, "set oauth")
             t.ok(user.control_database, "has control database")
