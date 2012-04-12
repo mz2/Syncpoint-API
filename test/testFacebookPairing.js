@@ -61,7 +61,7 @@ coux.del(users_db, function() {
             token: smallRand()
           },
           "pairing_state": "new", // only admin can write this
-          "pairing_type": "session-fb",
+          "pairing_type": "facebook",
           "pairing_token": "stubbed-token",
           "pairing_app_id": "test-app",
           "roles": [],
@@ -69,7 +69,7 @@ coux.del(users_db, function() {
         };
         coux.post(users_db, pairingUserDoc, function(err, ok) {
             test.ok(err===false)
-            console.log("did handshake", ok._id);
+            console.log("did handshake", ok.id);
             handshakeId = ok.id;
             test.end()
         })

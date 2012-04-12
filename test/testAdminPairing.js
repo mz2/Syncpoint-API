@@ -29,7 +29,7 @@ coux.del([testConfig.host, testConfig.users_db], function() {
              "token": "x62c18b0cf5383c17d324d7e26377be43"
          },
         "pairing_state": "approved", // only admin can write this
-        "pairing_type": "session-admin",
+        "pairing_type": "console",
         "pairing_token": 583300807,
         "pairing_app_id": "test-app",
         "user_full_name" : "宮城健介",
