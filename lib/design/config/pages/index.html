@@ -81,7 +81,7 @@
       <p>Total: {{rows.length}}</p>
       <ul>
       {{#rows}}
-        <li><strong>{{doc.session_token}}</strong> - {{doc.app_id}} - <a href="#sessions/verify/{{id}}">approval workflow</a></li>
+        <li><strong>{{doc.pairing_token}}</strong> - {{doc.pairing_app_id}} - <a href="#sessions/verify/{{id}}">approval workflow</a></li>
       {{/rows}}
       </ul>
     </script>
@@ -91,7 +91,7 @@
       <p>To activate this session, first you must verify the authentication code with the users device.
         Then you will pick the user account to connect the session with. If the user is new, you create a 
         new user account. Otherwise, join an existing account.</p>
-      <p>This code should be displayed on the device pairing screen: <pre>{{session_token}}</pre>
+      <p>This code should be displayed on the device pairing screen: <pre>{{pairing_token}}</pre>
         Is this the code shown? <button class="yes">Yes, let&apos;s connect this device with a user</button> <a href="#apps">No, take me back to the list of session to approve.</a></p>
         <div class="pair-user" style="display:none;">
           <p>Do you want to <a href="#pick">pick an existing user</a>, or <a href="#create">create a new one?</a></p>
