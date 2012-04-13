@@ -1,6 +1,12 @@
 # Syncpoint API
 
-Couchbase Syncpoint connects mobile devices to Apache CouchDB compatible storage, such as that offered by IrisCouch or Cloudant.
+Syncpoint is an API suite for synchronizing multi-user mobile applicatiosn with Apache CouchDB.
+
+Multi-user applications mean massive amounts of data. More importantly, they present nuanced security and data model challenges. Syncpoint addresses this with APIs that abstract the management of CouchDB databases and user provisioning. Once your user has paired with Syncpoint, the channel API provisions cloud databases for sync.
+
+
+
+
 
 This Syncpoint API package is only a small part of the larger whole. This package implements user-driven remote configuration changes such as offline capable user signup, pairing new devices with the Syncpoint service, and provisioning databases in the cloud and across all of a users devices.
 

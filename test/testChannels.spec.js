@@ -26,7 +26,16 @@ function createTemplate(cb) {
 
 function createDatabase(cb) {
   coux.del(testDb, function() {
-    coux.put(testDb, e(cb));
+    coux.put(testDb, e(function() {
+      var control_ddoc = require('../lib/design/control');
+      coux.put(testDb.concat(control_ddoc._id), control_ddoc, function(err, ok) {
+        if (err && err.error !== "conflict") {
+            e()(err);
+          } else {
+            cb()
+          }
+      })
+    }));
   });
 }
 
@@ -55,18 +64,22 @@ var chId = false,
   newChannelDoc = {
     type: "channel",
     state: "new",
+    name : "unique "+Math.random(),
     owner_id : "Daniel LaRusso"
   };
 test("with a new channel document", function(test) {
   coux.post(testDb, newChannelDoc, function(err, ok) {
     chId = ok.id;
-    test.ok(ok.id);
+    test.ok(ok.id, "has an id");
+    console.log("chId", chId)
     test.end();
   });
 });
 test('should update the document', function(test) {
   coux.waitForDoc(testDb, chId, 1, function(err, doc) {
-    test.is(doc.state, "ready");
+    if (doc.state == "new") return true;
+    if (doc.error) console.log("doc.error", doc.error)
+    test.is(doc.state, "ready", "channel ready");
     cloudDb = doc.cloud_database;
     test.end();
   });
