@@ -30,7 +30,7 @@ Please make your voice heard on the mailing list if you are interested in partic
 
 Removed dependency on Facebook Auth, instead you use whatever auth mechanism you want to on your server. We moved the example app away from Facebook and instead have auth based on the admin console CouchApp.
 
-Once you have started the server with `bin/run`, visit http://localhost:5984/sp_config/_design/config/pages/index.html
+Once you have started the server with `bin/run`, visit http://localhost:5984/sp_config/_design/console/pages/index.html
 
 ### What does it do?
 

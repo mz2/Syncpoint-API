@@ -22,7 +22,7 @@ test "databases and design docs created by the boostrap process", (t) ->
       coux [ host, testConfig.admin_db ] , (err, ok) ->
         t.is ok.db_name, testConfig.admin_db, "admin_db db exists"
 
-      coux [ host, testConfig.admin_db, "_design/config" ], (err, doc) ->
+      coux [ host, testConfig.admin_db, "_design/console" ], (err, doc) ->
         t.notOk (err and err.reason is "no_db_file"), "config db exists"
         t.notOk err, "design doc created"
         t.ok doc.views, "config ddoc exists"
