@@ -2786,7 +2786,7 @@ input[type="submit"].btn.btn-mini {
   background-image: -moz-linear-gradient(top, #dbdbd2, #a8a89d);
   background-image: -ms-linear-gradient(top, #dbdbd2, #a8a89d);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#dbdbd2), to(#a8a89d));
-
+  /* Couchbase colors */
   background-image: -webkit-linear-gradient(top, #dbdbd2, #a8a89d);
   background-image: -o-linear-gradient(top, #dbdbd2, #a8a89d);
   background-image: linear-gradient(top, #dbdbd2, #a8a89d);

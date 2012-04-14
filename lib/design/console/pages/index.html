@@ -70,7 +70,7 @@
       <p>Total: {{rows.length}}</p>
       <ul>
       {{#rows}}
-        <li><a href="/_utils/document.html?_users/{{id}}">{{value.name}}</a> - {{key}} - View <a href="#channels/by-user/{{id}}">channels</a></li>
+        <li><a target="utils" href="/_utils/document.html?_users/{{id}}">{{value.name}}</a> - {{key}} - View <a href="#channels/by-user/{{id}}">channels</a></li>
       {{/rows}}
       </ul>
     </script>
@@ -154,8 +154,8 @@
       <ul>
       {{#rows}}
         <li>{{doc.name}} - {{value}} - {{doc.owner_id}}
-          - <a href="/_utils/document.html?sp_control/{{id}}">view info</a>
-          - <a href="/_utils/database.html?{{doc.cloud_database}}">view data</a></li>
+          - <a target="utils" href="/_utils/document.html?{{admin_db}}/{{id}}">view info</a>
+          - <a target="utils" href="/_utils/database.html?{{doc.cloud_database}}">view data</a></li>
       {{/rows}}
       </ul>
     </script>
@@ -166,8 +166,8 @@
       <ul>
       {{#rows}}
         <li>{{doc.name}} - {{doc.owner_id}}
-          - <a href="/_utils/document.html?sp_control/{{id}}">view info</a>
-          - <a href="/_utils/database.html?{{doc.cloud_database}}">view data</a></li>
+          - <a target="utils" href="/_utils/document.html?{{admin_db}}/{{id}}">view info</a>
+          - <a target="utils" href="/_utils/database.html?{{doc.cloud_database}}">view data</a></li>
       {{/rows}}
       </ul>
     </script>
@@ -178,8 +178,8 @@
       <ul>
       {{#rows}}
         <li>{{doc.name}} - {{doc.owner_id}}
-          - <a href="/_utils/document.html?sp_control/{{id}}">view info</a>
-          - <a href="/_utils/database.html?{{doc.cloud_database}}">view data</a></li>
+          - <a target="utils" href="/_utils/document.html?{{admin_db}}/{{id}}">view info</a>
+          - <a target="utils" href="/_utils/database.html?{{doc.cloud_database}}">view data</a></li>
       {{/rows}}
       </ul>
     </script>
