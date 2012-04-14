@@ -10,7 +10,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: '<json:package.json>',
     tap: {
-      files: ['test/**/*.js','test/**/*.coffee']
+      files: ['test/**/*']
     },
     lint: {
       files: ['grunt.js', 'lib/*.js', 'lib/design/*.js', 'lib/design/console/app/*.js', 'test/**/*.js']
@@ -52,9 +52,11 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('tap', 'Run unit tests with tap.', function() {
     var done = this.async(),
       filepaths = grunt.file.expandFiles(this.file.src),
-      log = process.env.TAP,
-      tap = cp.spawn(path.join(__dirname,"node_modules","tap","bin","tap.js"),[log ? "--tap" : "","--timeout",20].concat(filepaths));
-    // console.log("tap", filepaths)
+      tap,
+      cmdargs = ["--timeout",20];
+    if (process.env.TAP) cmdargs.push("--tap");
+    tap = cp.spawn(path.join(__dirname,"node_modules","tap","bin","tap.js"),
+      cmdargs.concat(filepaths));
     tap.stdout.on('data', function (data) {
       var string = ""+data;
         console.log(string.replace(/^\s*|\s*$/g, ''));
