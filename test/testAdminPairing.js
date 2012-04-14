@@ -62,7 +62,7 @@ coux.del([testConfig.host, testConfig.users_db], function() {
             coux.post([testConfig.host, user.control_database], {"fizz":"buzz"}, function(err, fizz) {
               t.notOk(err, "test doc saved to users control database");
               setTimeout(function() {
-                coux([testConfig.host, testConfig.global_control_db, fizz.id], function(err, doc) {
+                coux([testConfig.host, testConfig.admin_db, fizz.id], function(err, doc) {
                   t.notOk(err, "fizz doc saved to global control database")
                 })
               },500);

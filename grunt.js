@@ -78,7 +78,7 @@ module.exports = function(grunt) {
     syncpointConfig.load(function(err, config) {
       console.log("couchapp config", config)
       couchapp.createApp(syncpointHelpers.configDDoc(config), 
-      [config.host, config.config_db].join('/'), function(app) {
+      [config.host, config.admin_db].join('/'), function(app) {
         app.sync(done)
       })
     })
