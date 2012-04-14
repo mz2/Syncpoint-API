@@ -33,9 +33,16 @@ syncpointConfig.load(function(err, config) {
   if (err) {
     console.error("Error with config", err, config)
   } else {
-    console.log("config".green || "config", config)
+    console.log("config".cyan || "config", config)
     var syncpoint = new SyncpointAPI(config);
-    syncpoint.start();
+    syncpoint.start(function(err) {
+      if (err) {
+        console.error("couldn't start syncpoint", err);
+      } else {
+        var success_message = "browse Syncpoint Admin Console at this URL:\n";
+        console.log((success_message.green || success_message) + config.console_url);
+      }
+    });
   }
 })
 

@@ -26,7 +26,7 @@
     "node": "~0.6.10"
   },
   "scripts": {
-    "test": "grunt tap"
+    "test": "node_modules/tap/bin/tap.js test/*"
   },
   "dependencies": {
     "couchapp" : "0.9.x",
