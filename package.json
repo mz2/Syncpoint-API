@@ -26,7 +26,8 @@
     "node": "~0.6.10"
   },
   "scripts": {
-    "test": "node_modules/tap/bin/tap.js test/*"
+    "test": "node_modules/tap/bin/tap.js --timeout=10 test/*",
+    "start": "bin/run"
   },
   "dependencies": {
     "couchapp" : "0.9.x",
