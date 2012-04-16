@@ -27,7 +27,7 @@ It will prompt you for your cloud URL, and help you set up an admin password. On
 
 It may look like this only with zero users:
 
-![admin console](docs/admin-console.png)
+![admin console](/couchbaselabs/Syncpoint-API/raw/master/docs/admin-console.png)
 
 Once you have compiled the iOS app, pointed at your new Syncpoint node, you see the "Sessions Awaiting Admin Approval" list on your phone or simulator, and you can active it via the admin console.
 
