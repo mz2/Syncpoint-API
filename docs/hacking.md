@@ -14,7 +14,9 @@ The code that attaches to the control databases is in the [`userControlSetup.js`
 
 ## Running the tests
 
-To run the tests, just run `npm test`. Or if you also want to lint the code (good for contributors to do) run `grunt`
+To run the tests, you've got to install the test dependencies. Change into the syncpoint directory (`cd node_modules/syncpoint` or wherever you checked this git repo out to) and run `npm install tap`;
+
+Then run `npm test` (or `npm test syncpoint` if you moved back out to your root directory). Or if you also want to lint the code (good for contributors to do) run `grunt` from inside the project director.
 
 
 
