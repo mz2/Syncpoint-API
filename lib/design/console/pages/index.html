@@ -70,7 +70,10 @@
       <p>Total: {{rows.length}}</p>
       <ul>
       {{#rows}}
-        <li><a target="utils" href="/_utils/document.html?_users/{{id}}">{{value.name}}</a> - {{key}} - View <a href="#channels/by-user/{{id}}">channels</a></li>
+        <li><a target="utils" href="/_utils/document.html?_users/{{id}}">{{value.name}}</a>
+         - {{key}} 
+         - View <a href="#channels/by-user/{{id}}">channels</a> 
+         or <a href="#devices/for-user/{{id}}">devices</a></li>
       {{/rows}}
       </ul>
     </script>
@@ -80,7 +83,8 @@
       <p>Total: {{rows.length}}</p>
       <ul>
       {{#rows}}
-        <li><strong>{{doc.pairing_token}}</strong> - {{doc.pairing_app_id}} - <a href="#sessions/verify/{{id}}">approval workflow</a></li>
+        <li><strong>{{doc.pairing_token}}</strong> - {{doc.pairing_app_id}} - 
+        <a href="#sessions/verify/{{id}}">approval workflow</a></li>
       {{/rows}}
       </ul>
     </script>
@@ -125,6 +129,20 @@
       {{/rows}}
       </ul>
     </script>
+    
+    
+    <script id="devicesForUser" type="text/template">
+      <h3>All the device keys for User 
+        <a target="utils" href="/_utils/document.html?{{users_db}}/{{_id}}">
+          {{name}} {{full_name}}</a>
+      </h3>
+      <ul>
+      {{#devices}}
+        <li>oauth id:{{name}} key:{{key}} token:{{token}}</li>
+      {{/devices}}
+      </ul>
+    </script>
+    
     
     <script id="usersByApp" type="text/template">
       <h2>All the users of {{app_id}}</h2>
