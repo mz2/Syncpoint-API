@@ -54,6 +54,11 @@ Channels are the unit of sync. A channel is defined by who can access it, and wh
 
 Channels make it easy to keep all of a users devices in sync, and to create apps that bridge multiple users without stressing.
 
+## Contribute
+
+You can get[deeper into the code here](https://github.com/couchbaselabs/Syncpoint-API/blob/master/docs/hacking.md). We welcome contribution. Currently very much in the clean things up for initial use stages.
+
+
 ### License
 
 This is under the [Apache 2.0 license](LICENSE)
