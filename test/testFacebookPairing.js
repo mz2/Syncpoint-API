@@ -1,7 +1,7 @@
 // MOCK the Facebook API
 
-var sessionFromFacebook = require('../lib/sessionFromFacebook');
-sessionFromFacebook._dependencies.getMeFromFB = function(code, cb) {
+var pairViaFacebook = require('../plugins/pairViaFacebook');
+pairViaFacebook._dependencies.getMeFromFB = function(code, cb) {
     console.log('getMeFromFB stubbed');
     assert.equal(code, "stubbed-token")
     var fixtureResponse = {

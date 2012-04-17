@@ -4,7 +4,7 @@ Like any good story, let's start at the beginning: [`bin/run`](../bin/run) is a 
 
 It loads [`syncpoint-api`](../lib/syncpoint-api.js) which binds the API event listeners to the various channels where mobile devices send session handshake and control documents.
 
-Right now there are two pairing listeners: [Facebook](../lib/sessionFromFacebook.js) and [Console](../lib/sessionViaAdminConsole.js)
+Right now there are two pairing listeners: [Facebook](../plugins/pairViaFacebook.js) and [Console](../lib/pairViaAdminConsole.js)
 
 ## Control databases
 
