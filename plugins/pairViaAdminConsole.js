@@ -5,7 +5,6 @@
 var coux = require('coux').coux,
     e = require('errLog').e,
     syncpointHelpers = require('../lib/syncpointHelpers'), 
-    userChannelControl = require('../lib/userChannelControl'),
     config;
 
 exports.bind = function(control, conf) {
