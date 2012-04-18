@@ -9,11 +9,11 @@ coux.del([testConfig.host, testConfig.users_db], function() {
   syncpoint.start(function(err) {
     test("creating a new web user", function(t) {
       t.plan(6)
-      var username = "Ali Mills", pairingUserDoc = {
+      var username = "Ronnie", pairingUserDoc = {
         "_id": "org.couchdb.user:" + username,
         "name": username,
         "type": "user",
-        "pairing_state": "new",
+        "pairing_state": "approved",
         "pairing_type": "web",
         "roles": [],
         "password": "Cobra Kai"

@@ -13,18 +13,22 @@ module.exports = function(grunt) {
       files: ['test/**/*']
     },
     lint: {
-      files: ['grunt.js', 'lib/*.js', 'lib/design/*.js', 'lib/design/console/app/*.js', 'test/**/*.js']
+      files: ['grunt.js', 'lib/*.js', 'plugins/*.js', 'lib/design/*.js', 'lib/design/console/app/*.js',
+      'lib/design/console/vendor/jquery.autoview.js', 'lib/design/console/vendor/jquery.coux.js',  'test/**/*.js']
+    },
+    "push" : {
+      files : ['lib/design/console/**/*']
     },
     watch: {
-      files: ['<config:lint.files>', '<config:tap.files>'],
-      tasks: 'default'
+      files: ['<config:lint.files>', '<config:tap.files>', '<config:push.files>'],
+      tasks: 'default_dev'
     },
     jshint: {
       options: {
-        // curly : false,
+        curly : false,
         asi : true,
         eqeqeq: false,
-        immed: true,
+        immed: false,
         latedef: false,
         newcap: true,
         noarg: true,
@@ -48,6 +52,7 @@ module.exports = function(grunt) {
   // Default task.
   
   grunt.registerTask('default', 'lint tap');
+  grunt.registerTask('default_dev', 'lint couchapp tap');
 
   grunt.registerMultiTask('tap', 'Run unit tests with tap.', function() {
     var done = this.async(),
@@ -74,14 +79,14 @@ module.exports = function(grunt) {
     });
   });
   
-  grunt.registerTask('couchapp', "Sync the Syncpoint admin couchapp", function() {
+  grunt.registerTask('couchapp', "Sync the Syncpoint Admin Console couchapp", function() {
     var done = this.async(),
       task = this;
     syncpointConfig.load(function(err, config) {
       console.log("couchapp config", config)
       couchapp.createApp(syncpointHelpers.configDDoc(config), 
       [config.host, config.admin_db].join('/'), function(app) {
-        app.sync(done)
+        app.push(done)
       })
     })
   })

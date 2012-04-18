@@ -49,9 +49,21 @@
         </div>
       </div>
     </div>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span9">
+          <!--Body content-->
+          <div id="main-content">
+          </div>
+        </div>
+        <div class="span3">
+          <!--Sidebar content-->
+          <h3>Needs Admin Approval to Pair</h3>
+          <div id="pairing-queue"></div>
+        </div>
+      </div>
+    </div>
 
-    <div class="container" id="main-content">
-    </div> <!-- /container -->
 
     <!-- Le javascript
     ================================================== -->
@@ -72,23 +84,40 @@
       {{#rows}}
         <li><a target="utils" href="/_utils/document.html?_users/{{id}}">{{value.name}}</a>
          - {{key}} 
-         - View <a href="#channels/by-user/{{id}}">channels</a> 
-         or <a href="#devices/for-user/{{id}}">devices</a></li>
+         - View <a href="#channels/by-user/{{id}}">channels</a>,
+         <a href="#devices/for-user/{{id}}">devices</a>
+         or <a target="utils" href="/_utils/database.html?{{doc.control_database}}/_design/control/_view/by_type">control database</a></li>
       {{/rows}}
+      <p>Message for people without users yet. You can sign in via Futon as a new user on <a target="utils" href="/_utils/index.html">on the lower left hand corner of the page.</a></p>
       </ul>
     </script>
     
-    <script id="newAdminSessions" type="text/template">
-      <h2>Sessions Awaiting Admin Approval</h2>
-      <p>Total: {{rows.length}}</p>
+    <script id="newConsolePairing" type="text/template">
+      <p>Mobile Pairing: {{rows.length}}</p>
       <ul>
       {{#rows}}
-        <li><strong>{{doc.pairing_token}}</strong> - {{doc.pairing_app_id}} - 
+        <li><strong>{{doc.pairing_token}}</strong> - app_id: <strong>{{doc.pairing_app_id}}</strong> - 
         <a href="#sessions/verify/{{id}}">approval workflow</a></li>
       {{/rows}}
       </ul>
     </script>
     
+    <script id="newWebUser" type="text/template">
+      <p>Web Users: {{rows.length}}</p>
+      <ul>
+      {{#rows}}
+        <li><strong><a target="utils" href="/_utils/document.html?{{users_db}}/{{id}}">
+          {{doc.name}}</a></strong> - app_id: <strong>{{doc.app_id}}</strong> - 
+        <a href="#pairing/web/{{id}}">approval workflow</a></li>
+      {{/rows}}
+      </ul>
+    </script>
+
+    <script id="approveWebUser" type="text/template">
+      <h2>Approve Web User: {{name}}</h2>
+      <form><input type="submit"></form>
+    </script>
+
     <script id="verifySession" type="text/template">
       <h2>Verify Pairing {{_id}}</h2>
       <p>To activate this session, first you must verify the authentication code with the users device.

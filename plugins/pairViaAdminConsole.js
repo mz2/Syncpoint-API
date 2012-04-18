@@ -4,7 +4,7 @@
 
 var coux = require('coux').coux,
     e = require('errLog').e,
-    syncpointHelpers = require('../lib/syncpointHelpers'), 
+    syncpointHelpers = require('../lib/syncpointHelpers'),
     config;
 
 exports.bind = function(control, conf) {
@@ -19,7 +19,8 @@ function newPairingUserDoc(pairingUserDoc) {
     // bind to this user
     coux([config.host, config.users_db, pairingUserDoc.owner_id], function(err, userDoc) {
         if (err) {
-            console.error("user not found, can't activate session", pairingUserDoc.owner_id, err);
+            console.error("user not found, can't activate session", 
+              pairingUserDoc.owner_id, err);
         } else { // make one
           syncpointHelpers.activatePairingUser(pairingUserDoc, userDoc, config);
         }

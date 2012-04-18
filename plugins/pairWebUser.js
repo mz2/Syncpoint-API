@@ -16,14 +16,11 @@ var coux = require('coux').coux,
 
 exports.bind = function(control, conf) {
     config = conf;
-    control.safe("web","new", newWebUserDoc);
+    control.safe("web","approved", newWebUserDoc);
 }
 
 function newWebUserDoc(doc) {
-  // we need to create the control database and update the documemt
-  syncpointHelpers.activateWebUser(doc, config);      
-  
+  // we need to create the control database
+  // assign the app_id, and update the documemt
+  syncpointHelpers.activateWebUser(doc, config); 
 }
-
-
-
