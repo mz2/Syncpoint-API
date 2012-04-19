@@ -22,5 +22,6 @@ exports.bind = function(control, conf) {
 function newWebUserDoc(doc) {
   // we need to create the control database
   // assign the app_id, and update the documemt
+  doc.app_id = doc.app_id || "none";
   syncpointHelpers.activateWebUser(doc, config); 
 }
