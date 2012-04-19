@@ -93,7 +93,7 @@
     </script>
     
     <script id="newConsolePairing" type="text/template">
-      <p>Mobile Pairing: {{rows.length}}</p>
+      <p>Mobile Console Pairing: {{rows.length}}</p>
       <ul>
       {{#rows}}
         <li><strong>{{doc.pairing_token}}</strong> - app_id: <strong>{{doc.pairing_app_id}}</strong> - 
@@ -103,7 +103,7 @@
     </script>
     
     <script id="newWebUser" type="text/template">
-      <p>Web Users: {{rows.length}}</p>
+      <p>Web Users to Pair: {{rows.length}}</p>
       <ul>
       {{#rows}}
         <li><strong><a target="utils" href="/_utils/document.html?{{users_db}}/{{id}}">
@@ -115,7 +115,7 @@
 
     <script id="approveWebUser" type="text/template">
       <h2>Approve Web User: {{name}}</h2>
-      <form><input type="submit"></form>
+      <form>This will add a user to app {{app_id}}<input type="submit"></form>
     </script>
 
     <script id="verifySession" type="text/template">
@@ -230,5 +230,6 @@
       {{/rows}}
       </ul>
     </script>
+
   </body>
 </html>
