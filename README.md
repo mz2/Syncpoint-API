@@ -20,10 +20,10 @@ If you're building an app that's mostly a JSON API for phones or webpages, you'r
 
 You need to have three prerequisites. iOS dev chops, Node.js (>=0.6.0) and Apache CouchDB (>=1.2.0). You can get hosted CouchDB free at [IrisCouch](http://www.iriscouch.com) or [Cloudant](http://www.cloudant.com). Once you have your cloud CouchDB url, and you have installed node.js, you can use the Node Package Manager to install Syncpoint:
 
-    npm install -g syncpoint
-    npm start -g syncpoint
+    npm install syncpoint
+    npm start syncpoint
 
-(You can leave off the -g and Syncpoint will be installed in your current working directory.) Alternatively if you want to contribute, you can install via git:
+Syncpoint will be installed in your current working directory, under `node_modules`. Alternatively if you want to contribute, you can install via git:
 
     git clone git://github.com/couchbaselabs/Syncpoint-API.git
     cd Syncpoint-API
