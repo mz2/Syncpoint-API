@@ -29,7 +29,7 @@ exports._dependencies = {
 function pairViaFacebook(pairingUserDoc) {
     // TODO first verify that pairingUserDoc.app_id matches an existing app
     // also verify the doc is signed with the apps public key or something
-    console.log("pairViaFacebook",pairingUserDoc)
+    console.log("pairViaFacebook",pairingUserDoc._id)
     exports._dependencies.getMeFromFB(pairingUserDoc.pairing_token, function(err, resp) {
         if (err) {
             pairingUserDoc.state = 'error';
@@ -45,7 +45,7 @@ function pairViaFacebook(pairingUserDoc) {
               userDocId = "org.couchdb.user:"+userId;
             coux([config.host, config.users_db, userDocId], function(err, fb_user) {
                 if (!err) {
-                    console.log("user found", fb_user);
+                    console.log("user found", fb_user._id);
                 } else { // make one
                     fb_user = {
                        _id : userDocId,

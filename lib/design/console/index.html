@@ -208,7 +208,7 @@
     </script>
     
     <script id="channelByApp" type="text/template">
-      <h2>Channels for {{app_id}}</h2>
+      <h2>Channels for app: {{app_id}}</h2>
       <p>Total: {{rows.length}}</p>
       <ul>
       {{#rows}}
@@ -220,7 +220,7 @@
     </script>
     
     <script id="channelByUser" type="text/template">
-      <h2>Channels for {{user_id}}</h2>
+      <h2>Channels for user: {{user_id}}</h2>
       <p>Total: {{rows.length}}</p>
       <ul>
       {{#rows}}
@@ -231,14 +231,13 @@
       </ul>
     </script>
 
-
     <!-- Start Open Web Analytics Tracker -->
     <script type="text/javascript">
     //<![CDATA[
     var owa_baseUrl = 'http://localhost:8888/Open-Web-Analytics/';
     var owa_cmds = owa_cmds || [];
     owa_cmds.push(['setDebug', true]);
-    owa_cmds.push(['setSiteId', '3ff33af5dbc9bd9a2e8d53cb71d729e4']);
+    owa_cmds.push(['setSiteId', '6030119dcc3a9cd96be0bb7ebfa2b8ab']);
     owa_cmds.push(['trackPageView']);
     owa_cmds.push(['trackClicks']);
     owa_cmds.push(['trackDomStream']);
@@ -252,7 +251,6 @@
     //]]>
     </script>
     <!-- End Open Web Analytics Code -->
-
 
   </body>
 </html>

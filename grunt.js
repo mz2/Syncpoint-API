@@ -53,6 +53,8 @@ module.exports = function(grunt) {
   
   grunt.registerTask('default', 'lint tap');
   grunt.registerTask('default_dev', 'lint couchapp tap');
+  grunt.registerTask('cwatch', 'couchapp watch');
+
 
   grunt.registerMultiTask('tap', 'Run unit tests with tap.', function() {
     var done = this.async(),
