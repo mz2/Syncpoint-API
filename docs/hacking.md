@@ -4,7 +4,7 @@ Like any good story, let's start at the beginning: [`bin/run`](../bin/run) is a 
 
 It loads [`syncpoint-api`](../lib/syncpoint-api.js) which binds the API event listeners to the various channels where mobile devices send session handshake and control documents.
 
-Right now there are two pairing listeners: [Facebook](../plugins/pairViaFacebook.js) and [Console](../lib/pairViaAdminConsole.js)
+Right now there are three pairing listeners: [Web](../plugins/pairWebUser.js), [Facebook](../plugins/pairViaFacebook.js) and [Console](../lib/pairViaAdminConsole.js). To activate Facebook you have to put your own Facebook `app_id` into the iOS example app.
 
 ## Control databases
 
