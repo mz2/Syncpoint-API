@@ -1,7 +1,7 @@
 {
   "name": "syncpoint",
-  "description": "Mobile Syncpoint is an API suite for synchronizing multi-user interactive applications using Apache CouchDB in the cloud and TouchDB on mobile devices.",
-  "version": "0.2.4",
+  "description": "Sync multi-user applications with Apache CouchDB and TouchDB on mobile devices.",
+  "version": "0.2.5",
   "homepage": "https://github.com/couchbaselabs/Syncpoint-API",
   "author": {
     "name": "Chris Anderson",
