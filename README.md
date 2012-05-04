@@ -1,5 +1,7 @@
 # Syncpoint API
 
+Sync realtime multi-user applications with Apache CouchDB in the cloud and TouchDB on mobile devices.
+
 Mobile Syncpoint is an API suite for synchronizing multi-user interactive applications using Apache CouchDB in the cloud and TouchDB on mobile devices.
 
 ## Why Sync?
@@ -10,11 +12,13 @@ Syncpoint can be used for things like these: point-of-sale, retail, medical reco
 
 ## Millions of users, simplified.
 
-With CouchDB, developers often use per-user database patterns to build sync apps. It works, and folks have success modeling groups, per-user backups, and more complex applications using this model. However, creating and managing all those databases takes code -- code that you don't want to have to write. We've seen what works with CouchSync apps, so we've built Syncpoint to create an easy on-ramp for mobile.
+Syncpoint manages Apache CouchDB databases for multi-device installations. It provides a distributed API so that clients can ask the server to provision channels, and have a database created in the cloud. It also handles new user signup and mobile device pairing, and even works with CouchDB web user signup, if you want to provision databases for your web users.
 
-Syncpoint handles user signup, device pairing, and channel management, all with an extensible event-driven `_changes` based API. Syncpoint provisions users, devices, and channels. It's super-easy to hook into the server-side configuration change listeners and write your own event-driven plugins.
+Syncpoint API drivers work by listening for document updates in CouchDB. Developers can register listeners for document types, so any additional functionality is just a JavaScript module that binds to the control channel. All of Syncpoint API is implemented in that way, so code examples are easy to find. (Look in the `lib` and `plugins` directories).
 
-If you're building an app that's mostly a JSON API for phones or webpages, you're in the right place. [What do you want to see?](#community)
+If you're building an app that's mostly a JSON API for phones or webpages, you're in the right place. [What do you want to see?](https://groups.google.com/forum/#!forum/mobile-couchbase)
+
+We need your feedback and contributions, they will play a huge role in the direction of the project, so please let us know if you are experimenting with Syncpoint.
 
 ## Get Started
 
@@ -33,7 +37,7 @@ Syncpoint will be installed in your current working directory, under `node_modul
 
 It will prompt you for your cloud URL, and help you set up an admin password.  Continue this adventure by opening the Admin console (your terminal should have printed out the link to the admin console when you ran `npm start syncpoint`);
 
-It may look like this only with zero users:
+It may look like this only without any users yet:
 
 ![admin console](/couchbaselabs/Syncpoint-API/raw/master/docs/admin-console.png)
 
@@ -48,8 +52,17 @@ You can [read about the architecture of a Syncpoint App here.](https://github.co
 
 ## Contribute
 
-You can get[deeper into the code here](https://github.com/couchbaselabs/Syncpoint-API/blob/master/docs/hacking.md). We welcome contribution. Currently very much in the clean things up for initial use stages.
+You can get[deeper into the code here](https://github.com/couchbaselabs/Syncpoint-API/blob/master/docs/hacking.md). We welcome contribution.
 
+Some rough todos: 
+  
+Last big one as far as working out the API, is one user creates a private channel, and then invites other users to it. Also, how to best advertise public channels?
+
+Also lots of clean up in the iOS Syncpoint framework.
+
+And in this code base, I think things could be modulized better, move to using follow instead of coux for changes. 
+
+Maybe the subcomponents (Facebook pairing, etc) can be made independent NPM modules. Then there would need to be some config step or module install step on the part of the user to activate those but we want that anyway I think.
 
 ### License
 
