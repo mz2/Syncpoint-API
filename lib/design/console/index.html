@@ -83,10 +83,19 @@
       <ul>
       {{#rows}}
         <li><a target="utils" href="/_utils/document.html?_users/{{id}}">{{value.name}}</a>
-         - {{key}} 
+         - {{key}}
+         
+         {{#doc.control_database}}
          - View <a href="#channels/by-user/{{id}}">channels</a>,
          <a href="#devices/for-user/{{id}}">devices</a>
-         or <a target="utils" href="/_utils/database.html?{{doc.control_database}}/_design/control/_view/by_type">control database</a></li>
+         or <a target="utils" href="/_utils/database.html?{{doc.control_database}}/_design/control/_view/by_type">control database</a>
+         {{/doc.control_database}}
+         
+         {{#doc.channel_database}}
+         - View <a href="#devices/for-user/{{id}}">devices</a> 
+         or <a target="utils" href="/_utils/database.html?{{doc.channel_database}}">channel database</a>
+         {{/doc.channel_database}}
+         </li>
       {{/rows}}
       <p>Message for people without users yet. You can sign in via Futon as a new user on <a target="utils" href="/_utils/index.html">on the lower left hand corner of the page.</a></p>
       </ul>
